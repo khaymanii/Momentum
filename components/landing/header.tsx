@@ -23,11 +23,8 @@ export function Header() {
         >
           How it works
         </Link>
-        <Link
-          className="transition-colors hover:text-[#171817]"
-          href="#why-momentum"
-        >
-          Why Momentum
+        <Link className="transition-colors hover:text-[#171817]" href="#features">
+          Features
         </Link>
       </nav>
 
@@ -35,7 +32,7 @@ export function Header() {
         className="rounded-full bg-[#1d5c43] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#164732]"
         href="#early-access"
       >
-        Join early access
+        Create your waitlist
       </Link>
     </header>
   );

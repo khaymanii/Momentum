@@ -2,8 +2,8 @@ import Link from "next/link";
 
 const navigation = [
   ["How it works", "#how-it-works"],
-  ["Why Momentum", "#why-momentum"],
-  ["Early access", "#early-access"],
+  ["Features", "#features"],
+  ["Create a waitlist", "#early-access"],
 ];
 
 export function Footer() {
