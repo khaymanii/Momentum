@@ -1,36 +1,218 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Momentum
 
-## Getting Started
+> **Launch with users who are still excited.**
 
-First, run the development server:
+Momentum is an AI-powered Waitlist CRM that helps founders collect early users, keep them engaged throughout the product development journey, and launch with momentum—not silence.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Instead of simply collecting email addresses, Momentum helps founders build relationships with their early adopters through AI-assisted updates, engagement tracking, and actionable insights.
+
+---
+
+## 🚀 The Problem
+
+Most founders create a waitlist, collect hundreds or thousands of emails, then disappear while building.
+
+Months later, they launch to an audience that has forgotten why they signed up.
+
+Momentum solves this by helping founders continuously engage their waitlist until launch.
+
+---
+
+## 💡 The Solution
+
+Momentum provides founders with a beautiful pre-launch CRM where they can:
+
+- Create a waitlist page
+- Collect and manage early users
+- Send product updates
+- Track engagement
+- Measure community excitement using the **Momentum Score**
+
+---
+
+## ✨ MVP Features
+
+### Landing Page
+
+- Marketing website
+- Product overview
+- Call-to-action
+
+### Authentication _(Upcoming)_
+
+- Founder sign up
+- Founder login
+
+### Project Management _(Upcoming)_
+
+- Create a project
+- Manage multiple waitlists
+
+### Waitlist Builder _(Upcoming)_
+
+- Beautiful hosted waitlist page
+- Email collection
+- Custom branding
+
+### Waitlist CRM _(Upcoming)_
+
+- View all subscribers
+- Search users
+- Export CSV
+
+### Founder Updates _(Upcoming)_
+
+- Write updates
+- AI-assisted content generation
+- Email broadcasting
+
+### Momentum Score _(Upcoming)_
+
+Track community engagement based on user activity.
+
+Examples include:
+
+- Email opens
+- Link clicks
+- Referrals
+- Recent activity
+
+---
+
+## 🏗️ MVP Workflow
+
+```text
+Founder creates project
+        ↓
+Momentum generates waitlist page
+        ↓
+Users join waitlist
+        ↓
+Momentum stores users
+        ↓
+Founder sends updates
+        ↓
+Users engage
+        ↓
+Momentum tracks engagement
+        ↓
+AI calculates Momentum Score
+        ↓
+Founder gains actionable insights
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠 Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Frontend
 
-## Learn More
+- Next.js (App Router)
+- React
+- TypeScript
+- Tailwind CSS
 
-To learn more about Next.js, take a look at the following resources:
+### Backend
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Firebase Authentication
+- Cloud Firestore
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### AI
 
-## Deploy on Vercel
+- OpenAI API _(planned)_
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Email
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Resend _(planned)_
+
+### Deployment
+
+- Vercel
+
+---
+
+## 📂 Project Structure
+
+```
+app/
+│
+├── layout.tsx
+├── page.tsx
+└── globals.css
+
+components/
+│
+├── layout/
+│   ├── Navbar.tsx
+│   └── Footer.tsx
+│
+├── landing/
+│   ├── Hero.tsx
+│   ├── Problem.tsx
+│   ├── HowItWorks.tsx
+│   ├── Features.tsx
+│   └── CTA.tsx
+│
+└── ui/
+
+lib/
+
+types/
+
+public/
+```
+
+---
+
+## 🎯 Project Goal
+
+Momentum is designed to become the operating system for startup launches.
+
+Instead of managing a spreadsheet full of emails, founders can understand who is excited, who is disengaging, and what actions to take to build stronger momentum before launch.
+
+---
+
+## 📅 Roadmap
+
+### Phase 1
+
+- [x] Landing page
+- [ ] Authentication
+- [ ] Create project
+- [ ] Hosted waitlist page
+- [ ] Waitlist CRM
+- [ ] Founder updates
+- [ ] Momentum Score
+
+### Phase 2
+
+- [ ] AI-generated founder updates
+- [ ] Email engagement tracking
+- [ ] Referral system
+- [ ] AI recommendations
+
+### Phase 3
+
+- [ ] Predictive launch analytics
+- [ ] User segmentation
+- [ ] Multi-project workspaces
+- [ ] Team collaboration
+- [ ] API & integrations
+
+---
+
+## 🤝 Contributing
+
+Momentum is currently under active development.
+
+Contributions, ideas, and feedback are welcome as the product evolves.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+Built with ❤️ for founders who want to launch with momentum.

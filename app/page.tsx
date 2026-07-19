@@ -1,6 +1,6 @@
 import { CallToAction } from "@/components/landing/call-to-action";
-import { Footer } from "@/components/landing/footer";
-import { Header } from "@/components/landing/header";
+import { Footer } from "@/components/layout/footer";
+import { Header } from "@/components/layout/header";
 import { Hero } from "@/components/landing/hero";
 import { HowItWorks } from "@/components/landing/how-it-works";
 import { Features } from "@/components/landing/features";
