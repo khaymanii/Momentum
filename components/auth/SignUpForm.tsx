@@ -5,7 +5,6 @@ import Link from "next/link";
 import { AuthInput } from "./AuthInput";
 import { PasswordInput } from "./PasswordInput";
 
-
 export function SignUpForm() {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -22,9 +21,6 @@ export function SignUpForm() {
 
   return (
     <>
-
-
-
       <form className="space-y-5" onSubmit={handleSubmit}>
         <AuthInput
           label="Full name"

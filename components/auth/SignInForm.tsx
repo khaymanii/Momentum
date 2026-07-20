@@ -11,13 +11,12 @@ export function SignInForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setError("");
     setIsLoading(true);
 
-    
     // Firebase authentication will be connected later, this one is manual .
     setTimeout(() => {
       setIsLoading(false);
@@ -38,10 +37,7 @@ export function SignInForm() {
           placeholder="you@example.com"
         />
 
-        <PasswordInput
-          label="Password"
-          name="password"
-        />
+        <PasswordInput label="Password" name="password" />
 
         <div className="flex justify-end">
           <Link
