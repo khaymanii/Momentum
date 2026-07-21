@@ -5,7 +5,10 @@ import Link from "next/link";
 import { AuthInput } from "./AuthInput";
 import { PasswordInput } from "./PasswordInput";
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/dev
 export function SignUpForm() {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -22,9 +25,12 @@ export function SignUpForm() {
 
   return (
     <>
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> origin/dev
       <form className="space-y-5" onSubmit={handleSubmit}>
         <AuthInput
           label="Full name"
@@ -103,4 +109,8 @@ export function SignUpForm() {
       </p>
     </>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/dev

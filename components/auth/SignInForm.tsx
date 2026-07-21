@@ -11,13 +11,20 @@ export function SignInForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
+<<<<<<< HEAD
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+=======
+  function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
+>>>>>>> origin/dev
     event.preventDefault();
 
     setError("");
     setIsLoading(true);
 
+<<<<<<< HEAD
     
+=======
+>>>>>>> origin/dev
     // Firebase authentication will be connected later, this one is manual .
     setTimeout(() => {
       setIsLoading(false);
@@ -38,10 +45,14 @@ export function SignInForm() {
           placeholder="you@example.com"
         />
 
+<<<<<<< HEAD
         <PasswordInput
           label="Password"
           name="password"
         />
+=======
+        <PasswordInput label="Password" name="password" />
+>>>>>>> origin/dev
 
         <div className="flex justify-end">
           <Link
@@ -88,4 +99,8 @@ export function SignInForm() {
       </p>
     </>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/dev
