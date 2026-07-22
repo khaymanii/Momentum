@@ -21,6 +21,11 @@ export function SignUpForm() {
 
   return (
     <>
+
+
+
+
+
       <form className="space-y-5" onSubmit={handleSubmit}>
         <AuthInput
           label="Full name"
@@ -99,4 +104,7 @@ export function SignUpForm() {
       </p>
     </>
   );
+
 }
+
+

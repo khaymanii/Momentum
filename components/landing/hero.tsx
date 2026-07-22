@@ -10,21 +10,25 @@ export function Hero() {
           <span className="h-2 w-2 rounded-full bg-[#83b89b]" />
           Built for teams before launch
         </p>
+
         <h1 className="text-5xl font-semibold leading-[1.03] tracking-[-0.055em] text-[#161916] sm:text-6xl lg:text-7xl">
           Know if your launch has
           <span className="text-[#337456]"> momentum.</span>
         </h1>
+
         <p className="mt-7 max-w-xl text-lg leading-8 text-[#626760] sm:text-xl">
           Create a beautiful waitlist, keep early users engaged, and see the
           signal behind your next product launch.
         </p>
+
         <div className="mt-9 flex flex-col gap-3 sm:flex-row">
           <Link
             className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1d5c43] px-6 py-3.5 text-sm font-medium text-white transition-colors hover:bg-[#164732]"
-            href="#early-access"
+            href="/sign-up"
           >
             Start building momentum <ArrowUpRight />
           </Link>
+
           <Link
             className="inline-flex items-center justify-center rounded-full border border-[#d6d9d3] bg-white px-6 py-3.5 text-sm font-medium text-[#31352f] transition-colors hover:border-[#aeb5ab]"
             href="#how-it-works"
@@ -32,6 +36,7 @@ export function Hero() {
             See how it works
           </Link>
         </div>
+
         <p className="mt-5 text-sm text-[#858a82]">
           No credit card. Built for your first 1,000 believers.
         </p>
