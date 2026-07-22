@@ -7,9 +7,14 @@ type AuthLayoutProps = {
   description: string;
 };
 
-export function AuthLayout({ children, title, description }: AuthLayoutProps) {
+export function AuthLayout({
+  children,
+  title,
+  description,
+}: AuthLayoutProps) {
   return (
     <main className="min-h-screen bg-[#f8f8f6] lg:grid lg:grid-cols-[0.9fr_1.1fr]">
+      {/* Brand Panel */}
       <section className="relative hidden min-h-screen overflow-hidden bg-[#1d5c43] p-10 text-white lg:flex lg:flex-col lg:justify-between">
         <Link
           href="/"
@@ -40,10 +45,12 @@ export function AuthLayout({ children, title, description }: AuthLayoutProps) {
           Built for founders who are building what comes next.
         </p>
 
+        {/* Decorative shapes */}
         <div className="pointer-events-none absolute -right-32 top-1/4 h-80 w-80 rounded-full border border-white/10" />
         <div className="pointer-events-none absolute -right-20 top-[30%] h-56 w-56 rounded-full border border-white/10" />
       </section>
 
+      {/* Form Panel */}
       <section className="flex min-h-screen items-center justify-center px-6 py-12 sm:px-10 lg:px-16">
         <div className="w-full max-w-md">
           <div className="mb-8 lg:hidden">
