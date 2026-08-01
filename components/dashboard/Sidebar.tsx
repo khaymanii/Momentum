@@ -2,56 +2,19 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  BarChart3,
-  FolderKanban,
-  LayoutDashboard,
-  LogOut,
-  Settings,
-  Sparkles,
-  Users,
-  X,
-} from "lucide-react";
+import { LogOut, Settings, X } from "lucide-react";
+import { navigation } from "@/dummyData/DashboardData";
 
 type SidebarProps = {
   open?: boolean;
   onClose?: () => void;
 };
 
-const navigation = [
-  {
-    label: "Overview",
-    href: "/dashboard",
-    icon: LayoutDashboard,
-  },
-  {
-    label: "Projects",
-    href: "/dashboard/projects",
-    icon: FolderKanban,
-  },
-  {
-    label: "Waitlist",
-    href: "/dashboard/waitlist",
-    icon: Users,
-  },
-  {
-    label: "Updates",
-    href: "/dashboard/updates",
-    icon: Sparkles,
-  },
-  {
-    label: "Analytics",
-    href: "/dashboard/analytics",
-    icon: BarChart3,
-  },
-];
-
 export function Sidebar({ open = false, onClose }: SidebarProps) {
   const pathname = usePathname();
 
   return (
     <>
-      {/* Mobile overlay */}
       {open && (
         <button
           aria-label="Close sidebar"
@@ -69,7 +32,6 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
           ${open ? "translate-x-0" : "-translate-x-full"}
         `}
       >
-        {/* Brand */}
         <div className="flex h-20 shrink-0 items-center justify-between border-b border-[#e5e7e2] px-6">
           <Link
             href="/dashboard"
@@ -79,7 +41,6 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
             <span className="grid h-9 w-9 place-items-center rounded-xl bg-[#1d5c43] text-sm font-bold text-white">
               M
             </span>
-
             Momentum
           </Link>
 
@@ -92,7 +53,6 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
           </button>
         </div>
 
-        {/* Navigation */}
         <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 py-6">
           <p className="mb-3 px-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#9a9d97]">
             Workspace
@@ -136,7 +96,6 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
             })}
           </nav>
 
-          {/* Bottom */}
           <div className="mt-auto pt-8">
             <Link
               href="/dashboard/settings"
@@ -163,10 +122,7 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
                   </p>
                 </div>
 
-                <LogOut
-                  size={16}
-                  className="ml-auto shrink-0 text-[#9a9d97]"
-                />
+                <LogOut size={16} className="ml-auto shrink-0 text-[#9a9d97]" />
               </div>
             </div>
           </div>
