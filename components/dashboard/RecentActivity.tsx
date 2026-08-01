@@ -1,30 +1,5 @@
-import {
-  ArrowUpRight,
-  Mail,
-  UserPlus,
-  Users,
-} from "lucide-react";
-
-const activities = [
-  {
-    icon: UserPlus,
-    title: "New waitlist member joined",
-    description: "olivia@example.com joined your waitlist",
-    time: "12 min ago",
-  },
-  {
-    icon: Mail,
-    title: "Founder update opened",
-    description: "Your latest update reached 84% open rate",
-    time: "2 hours ago",
-  },
-  {
-    icon: Users,
-    title: "Audience milestone reached",
-    description: "Your waitlist passed 1,200 members",
-    time: "Yesterday",
-  },
-];
+import { ArrowUpRight } from "lucide-react";
+import { activities } from "@/componentDummyData/DashboardData";
 
 export function RecentActivity() {
   return (

@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Area,
   AreaChart,
@@ -9,16 +7,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-
-const data = [
-  { date: "Jul 14", members: 842 },
-  { date: "Jul 15", members: 891 },
-  { date: "Jul 16", members: 934 },
-  { date: "Jul 17", members: 1012 },
-  { date: "Jul 18", members: 1098 },
-  { date: "Jul 19", members: 1174 },
-  { date: "Jul 20", members: 1248 },
-];
+import { data } from "@/componentDummyData/DashboardData";
 
 export function AudienceGrowthChart() {
   return (
@@ -32,14 +21,10 @@ export function AudienceGrowthChart() {
               1,248
             </h2>
 
-            <span className="text-sm font-medium text-[#337456]">
-              +12.8%
-            </span>
+            <span className="text-sm font-medium text-[#337456]">+12.8%</span>
           </div>
 
-          <p className="mt-1 text-sm text-[#9a9d97]">
-            Total waitlist members
-          </p>
+          <p className="mt-1 text-sm text-[#9a9d97]">Total waitlist members</p>
         </div>
 
         <select

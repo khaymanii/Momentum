@@ -1,29 +1,5 @@
-"use client";
-
-import {
-  Activity,
-  ArrowUpRight,
-  MessageCircle,
-  Users,
-} from "lucide-react";
-
-const scoreBreakdown = [
-  {
-    label: "Audience growth",
-    value: "88%",
-    icon: Users,
-  },
-  {
-    label: "Engagement",
-    value: "76%",
-    icon: MessageCircle,
-  },
-  {
-    label: "Recent activity",
-    value: "82%",
-    icon: Activity,
-  },
-];
+import { ArrowUpRight } from "lucide-react";
+import { scoreBreakdown } from "@/componentDummyData/DashboardData";
 
 export function MomentumScoreCard() {
   const score = 82;
@@ -33,13 +9,9 @@ export function MomentumScoreCard() {
   return (
     <section className="rounded-3xl border border-[#e5e7e2] bg-white p-6 sm:p-8">
       <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-        {/* Score */}
         <div className="flex items-center gap-6">
           <div className="relative h-36 w-36 shrink-0">
-            <svg
-              className="h-full w-full -rotate-90"
-              viewBox="0 0 120 120"
-            >
+            <svg className="h-full w-full -rotate-90" viewBox="0 0 120 120">
               <circle
                 cx="60"
                 cy="60"
@@ -99,7 +71,6 @@ export function MomentumScoreCard() {
           </div>
         </div>
 
-        {/* Breakdown */}
         <div className="grid gap-3 sm:grid-cols-3 lg:w-105 lg:grid-cols-1">
           {scoreBreakdown.map((item) => {
             const Icon = item.icon;
@@ -114,9 +85,7 @@ export function MomentumScoreCard() {
                     <Icon size={16} />
                   </div>
 
-                  <span className="text-sm text-[#656861]">
-                    {item.label}
-                  </span>
+                  <span className="text-sm text-[#656861]">{item.label}</span>
                 </div>
 
                 <span className="text-sm font-semibold text-[#171817]">

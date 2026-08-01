@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { Bell, Menu, Search } from "lucide-react";
 
@@ -20,9 +18,7 @@ export function Topbar({ onMenuClick }: TopbarProps) {
         </button>
 
         <div>
-          <p className="hidden text-xs text-[#858981] sm:block">
-            Workspace
-          </p>
+          <p className="hidden text-xs text-[#858981] sm:block">Workspace</p>
 
           <p className="text-sm font-semibold text-[#171817] sm:mt-0.5">
             My Startup

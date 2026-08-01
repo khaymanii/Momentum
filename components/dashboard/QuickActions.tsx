@@ -1,30 +1,5 @@
-import {
-  ArrowUpRight,
-  Mail,
-  Plus,
-  UserPlus,
-} from "lucide-react";
-
-const actions = [
-  {
-    title: "Create an update",
-    description: "Share progress with your audience",
-    icon: Mail,
-    href: "/dashboard/updates/new",
-  },
-  {
-    title: "View waitlist",
-    description: "See everyone waiting for your launch",
-    icon: UserPlus,
-    href: "/dashboard/waitlist",
-  },
-  {
-    title: "Add a project",
-    description: "Start building your next idea",
-    icon: Plus,
-    href: "/dashboard/projects/new",
-  },
-];
+import { ArrowUpRight } from "lucide-react";
+import { actions } from "@/componentDummyData/DashboardData";
 
 export function QuickActions() {
   return (
