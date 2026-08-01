@@ -8,7 +8,7 @@ import { PasswordInput } from "./PasswordInput";
 export function SignUpForm() {
   const [isLoading, setIsLoading] = useState(false);
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setIsLoading(true);
@@ -100,5 +100,3 @@ export function SignUpForm() {
     </>
   );
 }
-
-
