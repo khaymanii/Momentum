@@ -1,54 +1,10 @@
-import {
-  BarChart3,
-  BrainCircuit,
-  Mail,
-  Users,
-  ArrowUpRight,
-} from "lucide-react";
-
-const features = [
-  {
-    number: "01",
-    title: "AI Waitlist CRM",
-    description:
-      "Know every early user, understand their activity, and manage your launch audience from one focused workspace.",
-    icon: Users,
-    label: "Your audience, organized",
-  },
-  {
-    number: "02",
-    title: "AI Founder Updates",
-    description:
-      "Turn product progress into thoughtful updates your audience actually wants to read.",
-    icon: BrainCircuit,
-    label: "Stay connected",
-  },
-  {
-    number: "03",
-    title: "Momentum Score",
-    description:
-      "See the health of your audience at a glance and know when engagement starts to fade.",
-    icon: BarChart3,
-    label: "Measure excitement",
-  },
-  {
-    number: "04",
-    title: "Engagement Analytics",
-    description:
-      "Track opens, clicks, activity, and growth over time to understand what keeps people engaged.",
-    icon: Mail,
-    label: "Turn data into action",
-  },
-];
+import { ArrowUpRight } from "lucide-react";
+import { features } from "@/dummyData/Landingdata";
 
 export function Features() {
   return (
-    <section
-      className="border-b border-[#e1e4df] bg-white"
-      id="features"
-    >
+    <section className="border-b border-[#e1e4df] bg-white" id="features">
       <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8 lg:py-32">
-        {/* Header */}
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <div className="max-w-2xl">
             <div className="flex items-center gap-3">
@@ -80,9 +36,7 @@ export function Features() {
               <article
                 key={feature.title}
                 className={`group relative overflow-hidden rounded-[28px] border border-[#dfe4df] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#b9cdbd] hover:shadow-[0_20px_55px_rgba(30,60,40,0.08)] sm:p-9 ${
-                  index === 2
-                    ? "bg-[#1d5c43] text-white"
-                    : "bg-[#f8f9f7]"
+                  index === 2 ? "bg-[#1d5c43] text-white" : "bg-[#f8f9f7]"
                 }`}
               >
                 {/* Background decoration */}
@@ -107,9 +61,7 @@ export function Features() {
 
                     <span
                       className={`text-xs font-semibold tracking-[0.16em] ${
-                        index === 2
-                          ? "text-[#a9d4b5]"
-                          : "text-[#9aa59c]"
+                        index === 2 ? "text-[#a9d4b5]" : "text-[#9aa59c]"
                       }`}
                     >
                       {feature.number}
@@ -120,9 +72,7 @@ export function Features() {
                   <div className="mt-12 max-w-md">
                     <p
                       className={`text-sm font-medium ${
-                        index === 2
-                          ? "text-[#b7e2c5]"
-                          : "text-[#47725e]"
+                        index === 2 ? "text-[#b7e2c5]" : "text-[#47725e]"
                       }`}
                     >
                       {feature.label}
@@ -130,9 +80,7 @@ export function Features() {
 
                     <h3
                       className={`mt-3 text-2xl font-semibold tracking-[-0.035em] ${
-                        index === 2
-                          ? "text-white"
-                          : "text-[#171817]"
+                        index === 2 ? "text-white" : "text-[#171817]"
                       }`}
                     >
                       {feature.title}
@@ -140,9 +88,7 @@ export function Features() {
 
                     <p
                       className={`mt-4 max-w-sm leading-7 ${
-                        index === 2
-                          ? "text-[#d2e6d7]"
-                          : "text-[#626760]"
+                        index === 2 ? "text-[#d2e6d7]" : "text-[#626760]"
                       }`}
                     >
                       {feature.description}
@@ -152,16 +98,12 @@ export function Features() {
                   {/* Bottom visual */}
                   <div
                     className={`mt-10 flex items-center justify-between border-t pt-5 ${
-                      index === 2
-                        ? "border-white/15"
-                        : "border-[#dfe4df]"
+                      index === 2 ? "border-white/15" : "border-[#dfe4df]"
                     }`}
                   >
                     <span
                       className={`text-sm ${
-                        index === 2
-                          ? "text-[#b7e2c5]"
-                          : "text-[#858a82]"
+                        index === 2 ? "text-[#b7e2c5]" : "text-[#858a82]"
                       }`}
                     >
                       Explore feature

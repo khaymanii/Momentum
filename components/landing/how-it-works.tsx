@@ -1,57 +1,5 @@
-import {
-  ArrowRight,
-  BarChart3,
-  Check,
-  Mail,
-  Rocket,
-  Sparkles,
-  Users,
-} from "lucide-react";
-
-const steps = [
-  {
-    number: "01",
-    title: "Create your project",
-    description:
-      "Tell Momentum what you're building and create the foundation for your launch community.",
-    icon: Sparkles,
-  },
-  {
-    number: "02",
-    title: "Launch your waitlist",
-    description:
-      "Share a beautiful, branded page that turns early interest into real signups.",
-    icon: Rocket,
-  },
-  {
-    number: "03",
-    title: "Grow your audience",
-    description:
-      "Build a community of early users who want to follow your journey from the beginning.",
-    icon: Users,
-  },
-  {
-    number: "04",
-    title: "Keep them engaged",
-    description:
-      "Share product updates and progress so your audience never feels forgotten.",
-    icon: Mail,
-  },
-  {
-    number: "05",
-    title: "Understand your momentum",
-    description:
-      "See who is engaged, who is drifting away, and how excited your audience really is.",
-    icon: BarChart3,
-  },
-  {
-    number: "06",
-    title: "Launch with confidence",
-    description:
-      "Turn early interest into an audience that is ready when your product goes live.",
-    icon: Check,
-  },
-];
+import { ArrowRight } from "lucide-react";
+import { steps } from "@/dummyData/Landingdata";
 
 export function HowItWorks() {
   return (
@@ -60,7 +8,6 @@ export function HowItWorks() {
       id="how-it-works"
     >
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-32">
-        {/* Section Header */}
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
             <div className="flex items-center gap-3">
@@ -73,10 +20,7 @@ export function HowItWorks() {
 
             <h2 className="mt-5 text-3xl font-semibold leading-[1.08] tracking-tightert-[#161916] sm:text-4xl md:text-5xl lg:mt-6 lg:text-6xl">
               Build the audience
-              <span className="text-[#337456]">
-                {" "}
-                your launch deserves.
-              </span>
+              <span className="text-[#337456]"> your launch deserves.</span>
             </h2>
           </div>
 
@@ -86,9 +30,7 @@ export function HowItWorks() {
           </p>
         </div>
 
-        {/* Journey */}
         <div className="relative mt-12 sm:mt-16 lg:mt-20">
-          {/* Desktop timeline */}
           <div className="absolute left-6 right-6 top-6 hidden h-px bg-[#d8e3db] lg:block" />
 
           <div className="grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -132,7 +74,6 @@ export function HowItWorks() {
                     </p>
                   </div>
 
-                  {/* Progress */}
                   <div className="mt-8 flex items-center gap-1.5 sm:gap-2">
                     {steps.map((_, progressIndex) => (
                       <span
@@ -151,7 +92,6 @@ export function HowItWorks() {
           </div>
         </div>
 
-        {/* Bottom Statement */}
         <div className="mt-14 flex flex-col gap-8 border-t border-[#dfe4df] pt-8 sm:mt-16 lg:mt-20 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <p className="text-sm font-medium text-[#858a82]">

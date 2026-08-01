@@ -1,5 +1,3 @@
-"use client";
-
 import { ArrowUpRight } from "lucide-react";
 import { scoreBreakdown } from "@/dummyData/DashboardData";
 
@@ -73,7 +71,6 @@ export function MomentumScoreCard() {
           </div>
         </div>
 
-        {/* Breakdown */}
         <div className="grid gap-3 sm:grid-cols-3 lg:w-105 lg:grid-cols-1">
           {scoreBreakdown.map((item) => {
             const Icon = item.icon;

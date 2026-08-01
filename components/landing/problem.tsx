@@ -3,7 +3,6 @@ export function Problem() {
     <section className="border-y border-[#e1e4df] bg-white">
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
         <div className="grid gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-24">
-          {/* Left Content */}
           <div>
             <div className="flex items-center gap-3">
               <span className="h-px w-8 bg-[#83b89b]" />
@@ -24,7 +23,6 @@ export function Problem() {
             </p>
           </div>
 
-          {/* Right Visual */}
           <div className="relative">
             <div className="rounded-3xl border border-[#e1e4df] bg-[#f8f9f7] p-5 sm:p-7">
               <div className="flex items-center justify-between border-b border-[#e1e4df] pb-5">
@@ -86,9 +84,7 @@ export function Problem() {
                     100%
                   </p>
 
-                  <p className="mt-1 text-xs text-[#47725e]">
-                    Excited
-                  </p>
+                  <p className="mt-1 text-xs text-[#47725e]">Excited</p>
                 </div>
 
                 <div className="rounded-2xl bg-white p-4">
@@ -98,9 +94,7 @@ export function Problem() {
                     61%
                   </p>
 
-                  <p className="mt-1 text-xs text-[#9a5b48]">
-                    Fading
-                  </p>
+                  <p className="mt-1 text-xs text-[#9a5b48]">Fading</p>
                 </div>
 
                 <div className="rounded-2xl bg-white p-4">
@@ -110,17 +104,13 @@ export function Problem() {
                     24%
                   </p>
 
-                  <p className="mt-1 text-xs text-[#9a5b48]">
-                    Still engaged
-                  </p>
+                  <p className="mt-1 text-xs text-[#9a5b48]">Still engaged</p>
                 </div>
               </div>
             </div>
 
             <div className="absolute -bottom-5 -left-4 hidden rounded-2xl border border-[#dce5de] bg-white px-5 py-4 shadow-[0_12px_35px_rgba(30,60,40,0.08)] sm:block lg:-left-8">
-              <p className="text-xs text-[#858a82]">
-                The real problem
-              </p>
+              <p className="text-xs text-[#858a82]">The real problem</p>
 
               <p className="mt-1 text-sm font-medium text-[#303530]">
                 Attention disappears.
@@ -129,7 +119,6 @@ export function Problem() {
           </div>
         </div>
 
-        {/* Bottom Message */}
         <div className="mt-20 border-t border-[#e1e4df] pt-8 lg:mt-24">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="max-w-2xl text-xl font-medium leading-8 tracking-[-0.02em] text-[#303530]">
