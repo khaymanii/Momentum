@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import { steps } from "@/dummyData/Landingdata";
+import { steps } from "@/componentDummyData/Landingdata";
 
 export function HowItWorks() {
   return (

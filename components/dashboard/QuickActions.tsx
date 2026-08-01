@@ -1,5 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
-import { actions } from "@/dummyData/DashboardData";
+import { actions } from "@/componentDummyData/DashboardData";
 
 export function QuickActions() {
   return (

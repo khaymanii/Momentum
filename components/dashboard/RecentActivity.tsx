@@ -1,5 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
-import { activities } from "@/dummyData/DashboardData";
+import { activities } from "@/componentDummyData/DashboardData";
 
 export function RecentActivity() {
   return (

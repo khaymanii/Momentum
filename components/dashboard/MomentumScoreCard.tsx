@@ -1,5 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
-import { scoreBreakdown } from "@/dummyData/DashboardData";
+import { scoreBreakdown } from "@/componentDummyData/DashboardData";
 
 export function MomentumScoreCard() {
   const score = 82;

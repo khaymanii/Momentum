@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LogOut, Settings, X } from "lucide-react";
-import { navigation } from "@/dummyData/DashboardData";
+import { navigation } from "@/componentDummyData/DashboardData";
 
 type SidebarProps = {
   open?: boolean;

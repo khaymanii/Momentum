@@ -1,5 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
-import { features } from "@/dummyData/Landingdata";
+import { features } from "@/componentDummyData/Landingdata";
 
 export function Features() {
   return (

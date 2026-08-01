@@ -7,7 +7,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { data } from "@/dummyData/DashboardData";
+import { data } from "@/componentDummyData/DashboardData";
 
 export function AudienceGrowthChart() {
   return (
