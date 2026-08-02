@@ -7,8 +7,6 @@ import {
   Plus,
   Sparkles,
   TrendingUp,
-  Users,
-  Zap,
 } from "lucide-react";
 import {
   Area,
@@ -21,64 +19,11 @@ import {
 } from "recharts";
 
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
-
-const chartData = [
-  { day: "Mon", users: 42 },
-  { day: "Tue", users: 58 },
-  { day: "Wed", users: 51 },
-  { day: "Thu", users: 78 },
-  { day: "Fri", users: 92 },
-  { day: "Sat", users: 84 },
-  { day: "Sun", users: 118 },
-];
-
-const activities = [
-  {
-    initials: "JD",
-    name: "Jordan Davis",
-    action: "joined your waitlist",
-    time: "2 min ago",
-  },
-  {
-    initials: "AK",
-    name: "Alex Kim",
-    action: "opened your latest update",
-    time: "18 min ago",
-  },
-  {
-    initials: "MS",
-    name: "Maya Smith",
-    action: "joined your waitlist",
-    time: "42 min ago",
-  },
-  {
-    initials: "RB",
-    name: "Ryan Brooks",
-    action: "shared your project",
-    time: "1 hr ago",
-  },
-];
-
-const stats = [
-  {
-    label: "Waitlist members",
-    value: "1,248",
-    change: "+12.8%",
-    icon: Users,
-  },
-  {
-    label: "Engagement rate",
-    value: "74.2%",
-    change: "+8.4%",
-    icon: TrendingUp,
-  },
-  {
-    label: "Active this week",
-    value: "86",
-    change: "+24.5%",
-    icon: Zap,
-  },
-];
+import {
+  activities,
+  chartData,
+  stats,
+} from "@/appDummyData/dashboard/dashboard";
 
 export default function DashboardPage() {
   return (
@@ -164,16 +109,23 @@ export default function DashboardPage() {
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={chartData}>
                   <defs>
-                    <linearGradient id="momentumGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#337456" stopOpacity={0.22} />
+                    <linearGradient
+                      id="momentumGradient"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop
+                        offset="0%"
+                        stopColor="#337456"
+                        stopOpacity={0.22}
+                      />
                       <stop offset="100%" stopColor="#337456" stopOpacity={0} />
                     </linearGradient>
                   </defs>
 
-                  <CartesianGrid
-                    vertical={false}
-                    stroke="#edf0ec"
-                  />
+                  <CartesianGrid vertical={false} stroke="#edf0ec" />
 
                   <XAxis
                     dataKey="day"
@@ -227,9 +179,7 @@ export default function DashboardPage() {
                   82
                 </span>
 
-                <span className="mb-3 text-sm text-[#b7e2c5]">
-                  / 100
-                </span>
+                <span className="mb-3 text-sm text-[#b7e2c5]">/ 100</span>
               </div>
 
               <div className="mt-6 h-2 overflow-hidden rounded-full bg-white/15">
@@ -237,9 +187,7 @@ export default function DashboardPage() {
               </div>
 
               <div className="mt-5 flex items-center justify-between">
-                <span className="text-sm text-white/70">
-                  Strong momentum
-                </span>
+                <span className="text-sm text-white/70">Strong momentum</span>
 
                 <span className="flex items-center gap-1 text-sm font-medium text-[#b7e2c5]">
                   <TrendingUp size={15} />
@@ -302,9 +250,7 @@ export default function DashboardPage() {
           <div className="rounded-2xl border border-[#e2e6e0] bg-white p-5 sm:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-medium text-[#171817]">
-                  Recent activity
-                </p>
+                <p className="font-medium text-[#171817]">Recent activity</p>
 
                 <p className="mt-1 text-sm text-[#858981]">
                   What&apos;s happening with your audience
