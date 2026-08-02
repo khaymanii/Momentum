@@ -6,59 +6,14 @@ import {
   BarChart3,
   CalendarDays,
   Download,
-  Mail,
-  MousePointerClick,
   TrendingUp,
-  Users,
 } from "lucide-react";
 
-const stats = [
-  {
-    label: "Total audience",
-    value: "1,248",
-    change: "+12.8%",
-    positive: true,
-    icon: Users,
-  },
-  {
-    label: "Engagement rate",
-    value: "74.2%",
-    change: "+8.4%",
-    positive: true,
-    icon: TrendingUp,
-  },
-  {
-    label: "Avg. open rate",
-    value: "68.5%",
-    change: "+4.2%",
-    positive: true,
-    icon: Mail,
-  },
-  {
-    label: "Click-through rate",
-    value: "32.8%",
-    change: "-2.1%",
-    positive: false,
-    icon: MousePointerClick,
-  },
-];
-
-const growthData = [
-  { month: "Jan", value: 320 },
-  { month: "Feb", value: 450 },
-  { month: "Mar", value: 520 },
-  { month: "Apr", value: 680 },
-  { month: "May", value: 840 },
-  { month: "Jun", value: 1010 },
-  { month: "Jul", value: 1248 },
-];
-
-const engagementData = [
-  { label: "Highly engaged", value: 48, description: "Active in the last 7 days" },
-  { label: "Engaged", value: 26, description: "Active in the last 30 days" },
-  { label: "At risk", value: 16, description: "No activity for 30+ days" },
-  { label: "Inactive", value: 10, description: "No recent activity" },
-];
+import {
+  engagementData,
+  growthData,
+  stats,
+} from "@/appDummyData/dashboard/analytics";
 
 export default function AnalyticsPage() {
   const maxValue = Math.max(...growthData.map((item) => item.value));
@@ -77,8 +32,8 @@ export default function AnalyticsPage() {
           </h1>
 
           <p className="mt-2 max-w-xl text-sm leading-6 text-[#858981]">
-            Understand how your audience is growing, engaging, and moving
-            toward launch.
+            Understand how your audience is growing, engaging, and moving toward
+            launch.
           </p>
         </div>
 
@@ -206,13 +161,9 @@ export default function AnalyticsPage() {
             </div>
 
             <div>
-              <h2 className="font-semibold text-[#171817]">
-                Audience health
-              </h2>
+              <h2 className="font-semibold text-[#171817]">Audience health</h2>
 
-              <p className="text-xs text-[#858981]">
-                Engagement breakdown
-              </p>
+              <p className="text-xs text-[#858981]">Engagement breakdown</p>
             </div>
           </div>
 
@@ -253,9 +204,7 @@ export default function AnalyticsPage() {
               <TrendingUp size={18} />
             </div>
 
-            <p className="font-semibold text-[#171817]">
-              Strongest growth
-            </p>
+            <p className="font-semibold text-[#171817]">Strongest growth</p>
           </div>
 
           <p className="mt-5 text-2xl font-semibold text-[#1d5c43]">
@@ -263,15 +212,13 @@ export default function AnalyticsPage() {
           </p>
 
           <p className="mt-2 text-sm leading-6 text-[#6d736b]">
-            Your audience grew by 23.6% this month, your strongest growth
-            period so far.
+            Your audience grew by 23.6% this month, your strongest growth period
+            so far.
           </p>
         </div>
 
         <div className="rounded-3xl border border-[#e5e7e2] bg-white p-6">
-          <p className="text-sm text-[#858981]">
-            Best performing update
-          </p>
+          <p className="text-sm text-[#858981]">Best performing update</p>
 
           <h3 className="mt-4 font-semibold text-[#171817]">
             Building in public: Week 4
@@ -291,17 +238,15 @@ export default function AnalyticsPage() {
         </div>
 
         <div className="rounded-3xl border border-[#e5e7e2] bg-white p-6">
-          <p className="text-sm text-[#858981]">
-            Recommended action
-          </p>
+          <p className="text-sm text-[#858981]">Recommended action</p>
 
           <h3 className="mt-4 font-semibold text-[#171817]">
             Re-engage your quiet audience
           </h3>
 
           <p className="mt-2 text-sm leading-6 text-[#6d736b]">
-            16% of your audience has not interacted recently. A personal
-            founder update could bring them back.
+            16% of your audience has not interacted recently. A personal founder
+            update could bring them back.
           </p>
 
           <button className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-[#337456]">

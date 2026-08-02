@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { SubmitEvent, useState } from "react";
 import { ArrowUpRight, Check, Sparkles } from "lucide-react";
 
 type WaitlistPageProps = {
@@ -9,7 +9,7 @@ type WaitlistPageProps = {
   }>;
 };
 
-export default function WaitlistPage({ }: WaitlistPageProps) {
+export default function WaitlistPage({}: WaitlistPageProps) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,7 @@ export default function WaitlistPage({ }: WaitlistPageProps) {
   // Temporary project name
   const projectName = "My Startup";
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (!email.trim()) return;
@@ -42,9 +42,7 @@ export default function WaitlistPage({ }: WaitlistPageProps) {
               M
             </span>
 
-            <span className="font-semibold tracking-tight">
-              {projectName}
-            </span>
+            <span className="font-semibold tracking-tight">{projectName}</span>
           </div>
 
           <div className="flex items-center gap-2 text-sm text-[#858981]">
@@ -67,15 +65,13 @@ export default function WaitlistPage({ }: WaitlistPageProps) {
             {/* Heading */}
             <h1 className="mt-8 text-5xl font-semibold leading-[1.02] tracking-[-0.06em] text-[#161916] sm:text-6xl lg:text-8xl">
               The future is
-              <span className="block text-[#337456]">
-                almost here.
-              </span>
+              <span className="block text-[#337456]">almost here.</span>
             </h1>
 
             {/* Description */}
             <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-[#626760] sm:text-xl">
-              Be one of the first to experience what we are building.
-              Join the waitlist and get early access when we launch.
+              Be one of the first to experience what we are building. Join the
+              waitlist and get early access when we launch.
             </p>
 
             {/* Signup Form */}
@@ -145,22 +141,20 @@ export default function WaitlistPage({ }: WaitlistPageProps) {
 
             {/* Benefits */}
             <div className="mx-auto mt-16 grid max-w-2xl gap-4 text-left sm:grid-cols-3">
-              {[
-                "Early access",
-                "Exclusive updates",
-                "Launch benefits",
-              ].map((benefit) => (
-                <div
-                  key={benefit}
-                  className="flex items-center gap-2 text-sm text-[#626760]"
-                >
-                  <span className="grid h-6 w-6 place-items-center rounded-full bg-[#e5f1e9] text-[#337456]">
-                    <Check size={14} />
-                  </span>
+              {["Early access", "Exclusive updates", "Launch benefits"].map(
+                (benefit) => (
+                  <div
+                    key={benefit}
+                    className="flex items-center gap-2 text-sm text-[#626760]"
+                  >
+                    <span className="grid h-6 w-6 place-items-center rounded-full bg-[#e5f1e9] text-[#337456]">
+                      <Check size={14} />
+                    </span>
 
-                  {benefit}
-                </div>
-              ))}
+                    {benefit}
+                  </div>
+                ),
+              )}
             </div>
           </div>
         </div>
