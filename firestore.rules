@@ -1,0 +1,39 @@
+rules_version = '2';
+
+// The browser never talks to Firestore directly: dashboard and public
+// waitlist requests go through the Next.js API and Firebase Admin SDK.
+// These rules remain intentionally strict for any future client-SDK usage.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function owns(resourceData) {
+      return signedIn() && resourceData.ownerId == request.auth.uid;
+    }
+
+    match /projects/{projectId} {
+      allow create: if signedIn() && request.resource.data.ownerId == request.auth.uid;
+      allow get, list: if owns(resource.data);
+      allow update: if owns(resource.data)
+        && request.resource.data.ownerId == resource.data.ownerId;
+      allow delete: if owns(resource.data);
+
+      match /subscribers/{subscriberId} {
+        allow read, write: if owns(get(/databases/$(database)/documents/projects/$(projectId)).data);
+      }
+    }
+
+    match /updates/{updateId} {
+      allow create: if signedIn() && request.resource.data.ownerId == request.auth.uid;
+      allow get, list, delete: if owns(resource.data);
+      allow update: if owns(resource.data)
+        && request.resource.data.ownerId == resource.data.ownerId;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
