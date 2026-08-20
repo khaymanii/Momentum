@@ -1,6 +1,10 @@
 "use client";
 
+<<<<<<< HEAD
 import { SubmitEvent, useEffect, useState } from "react";
+=======
+import { SubmitEvent, useState } from "react";
+>>>>>>> 81a8a0f855afc339975a7bc4a4cafe573612fc9d
 import { ArrowUpRight, Check, Sparkles } from "lucide-react";
 
 type WaitlistPageProps = {
@@ -9,7 +13,11 @@ type WaitlistPageProps = {
   }>;
 };
 
+<<<<<<< HEAD
 export default function WaitlistPage({ params }: WaitlistPageProps) {
+=======
+export default function WaitlistPage({}: WaitlistPageProps) {
+>>>>>>> 81a8a0f855afc339975a7bc4a4cafe573612fc9d
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -20,7 +28,11 @@ export default function WaitlistPage({ params }: WaitlistPageProps) {
   useEffect(() => { params.then(({ slug: value }) => { setSlug(value); fetch(`/api/public/w/${encodeURIComponent(value)}`).then(async (response) => { const data = await response.json(); if (!response.ok) throw new Error(data.error); setProject(data.project); }).catch((cause) => setError(cause.message)); }); }, [params]);
   const projectName = project?.name ?? "Loading...";
 
+<<<<<<< HEAD
   async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
+=======
+  function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
+>>>>>>> 81a8a0f855afc339975a7bc4a4cafe573612fc9d
     event.preventDefault();
 
     if (!email.trim()) return;
@@ -63,12 +75,22 @@ export default function WaitlistPage({ params }: WaitlistPageProps) {
 
             {/* Heading */}
             <h1 className="mt-8 text-5xl font-semibold leading-[1.02] tracking-[-0.06em] text-[#161916] sm:text-6xl lg:text-8xl">
+<<<<<<< HEAD
               {project?.waitlist.headline ?? "The future is almost here."}
+=======
+              The future is
+              <span className="block text-[#337456]">almost here.</span>
+>>>>>>> 81a8a0f855afc339975a7bc4a4cafe573612fc9d
             </h1>
 
             {/* Description */}
             <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-[#626760] sm:text-xl">
+<<<<<<< HEAD
               {project?.waitlist.description ?? "Be one of the first to experience what we are building."}
+=======
+              Be one of the first to experience what we are building. Join the
+              waitlist and get early access when we launch.
+>>>>>>> 81a8a0f855afc339975a7bc4a4cafe573612fc9d
             </p>
 
             {/* Signup Form */}

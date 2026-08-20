@@ -19,8 +19,19 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
   const router = useRouter();
   const user = useAuthStore((state) => state.user);
   const clear = useAuthStore((state) => state.clear);
-  const initials = (user?.name || user?.email || "Founder").split(" ").map((part) => part[0]).join("").slice(0, 2).toUpperCase();
-  async function logout() { await signOut(firebaseAuth); await fetch("/api/auth/session", { method: "DELETE" }); clear(); router.push("/sign-in"); router.refresh(); }
+  const initials = (user?.name || user?.email || "Founder")
+    .split(" ")
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+  async function logout() {
+    await signOut(firebaseAuth);
+    await fetch("/api/auth/session", { method: "DELETE" });
+    clear();
+    router.push("/sign-in");
+    router.refresh();
+  }
 
   return (
     <>
@@ -115,10 +126,22 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
               Settings
             </Link>
 
-            <button onClick={logout} className="mt-5 w-full border-t border-[#e5e7e2] pt-5 text-left">
+            <button
+              onClick={logout}
+              className="mt-5 w-full border-t border-[#e5e7e2] pt-5 text-left"
+            >
               <div className="flex items-center gap-3 rounded-xl px-2 py-2">
                 <div className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full bg-[#dfe9e2] text-sm font-semibold text-[#1d5c43]">
-                  {user?.image ? <img src={user.image} alt="Your profile" className="h-full w-full object-cover" referrerPolicy="no-referrer" /> : initials}
+                  {user?.image ? (
+                    <img
+                      src={user.image}
+                      alt="Your profile"
+                      className="h-full w-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    initials
+                  )}
                 </div>
 
                 <div className="min-w-0">
