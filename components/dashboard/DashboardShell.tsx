@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { Topbar } from "./Topbar";
+import { useAuthStore } from "@/stores/auth-store";
 
 export function DashboardShell({
   children,
@@ -10,6 +11,9 @@ export function DashboardShell({
   children: React.ReactNode;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const hydrate = useAuthStore((state) => state.hydrate);
+
+  useEffect(() => { void hydrate(); }, [hydrate]);
 
   return (
     <div className="flex h-screen overflow-hidden bg-[#f8f8f6]">

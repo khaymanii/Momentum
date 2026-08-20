@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 import {
   ArrowUpRight,
@@ -10,8 +13,9 @@ import {
 
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 
-const projects = [
+const demoProjects = [
   {
+    id: "",
     name: "My Startup",
     description: "The future of creator collaboration.",
     status: "Growing",
@@ -20,6 +24,7 @@ const projects = [
     updated: "Updated 2 hours ago",
   },
   {
+    id: "",
     name: "Mobile App",
     description: "A better way to manage your daily workflow.",
     status: "Draft",
@@ -30,6 +35,15 @@ const projects = [
 ];
 
 export default function ProjectsPage() {
+  const [projects, setProjects] = useState(demoProjects);
+  useEffect(() => {
+    fetch("/api/projects")
+      .then(async (response) => {
+        const data = await response.json();
+        if (response.ok) setProjects(data.projects.map((project: { id: string; name: string; description: string; status: string; memberCount: number; momentumScore: number }) => ({ id: project.id, name: project.name, description: project.description, status: project.status, members: String(project.memberCount), momentum: String(project.momentumScore), updated: "Recently updated" })));
+      })
+      .catch(() => undefined);
+  }, []);
   return (
     <DashboardShell>
       <div className="mx-auto max-w-7xl">
@@ -62,7 +76,7 @@ export default function ProjectsPage() {
         <div className="mt-8 grid gap-5 lg:grid-cols-2">
           {projects.map((project) => (
             <article
-              key={project.name}
+              key={project.id || project.name}
               className="group rounded-2xl border border-[#e2e6e0] bg-white p-5 transition hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(30,60,40,0.07)] sm:p-6"
             >
               {/* Card Header */}
@@ -131,9 +145,7 @@ export default function ProjectsPage() {
 
               {/* Open Project */}
              <Link
-  href={`/dashboard/projects/${project.name
-    .toLowerCase()
-    .replaceAll(" ", "-")}/builder`}
+  href={`/dashboard/projects/${project.id || project.name.toLowerCase().replaceAll(" ", "-")}/builder`}
   className="mt-5 flex w-full items-center justify-between rounded-xl border border-[#e2e6e0] px-4 py-3 text-sm font-medium text-[#303530] transition hover:border-[#b9cdbd] hover:bg-[#f8faf8]"
 >
   Open project

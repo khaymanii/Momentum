@@ -1,6 +1,6 @@
 "use client";
 
-import { SubmitEvent, useState } from "react";
+import { SubmitEvent, useEffect, useState } from "react";
 import { ArrowUpRight, Check, Sparkles } from "lucide-react";
 
 type WaitlistPageProps = {
@@ -9,27 +9,26 @@ type WaitlistPageProps = {
   }>;
 };
 
-export default function WaitlistPage({}: WaitlistPageProps) {
+export default function WaitlistPage({ params }: WaitlistPageProps) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [slug, setSlug] = useState("");
+  const [project, setProject] = useState<{ name: string; memberCount: number; waitlist: { headline: string; description: string; buttonText: string; brandColor: string } } | null>(null);
 
-  // Temporary project name
-  const projectName = "My Startup";
+  useEffect(() => { params.then(({ slug: value }) => { setSlug(value); fetch(`/api/public/w/${encodeURIComponent(value)}`).then(async (response) => { const data = await response.json(); if (!response.ok) throw new Error(data.error); setProject(data.project); }).catch((cause) => setError(cause.message)); }); }, [params]);
+  const projectName = project?.name ?? "Loading...";
 
-  function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
+  async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (!email.trim()) return;
 
-    setLoading(true);
-
-    // Temporary simulation until Firebase is connected
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-      setEmail("");
-    }, 800);
+    setLoading(true); setError("");
+    try { const response = await fetch(`/api/public/w/${encodeURIComponent(slug)}/subscribers`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email }) }); const data = await response.json(); if (!response.ok) throw new Error(data.error || "Could not join the waitlist."); setSubmitted(true); setEmail(""); }
+    catch (cause) { setError(cause instanceof Error ? cause.message : "Could not join the waitlist."); }
+    finally { setLoading(false); }
   }
 
   return (
@@ -64,14 +63,12 @@ export default function WaitlistPage({}: WaitlistPageProps) {
 
             {/* Heading */}
             <h1 className="mt-8 text-5xl font-semibold leading-[1.02] tracking-[-0.06em] text-[#161916] sm:text-6xl lg:text-8xl">
-              The future is
-              <span className="block text-[#337456]">almost here.</span>
+              {project?.waitlist.headline ?? "The future is almost here."}
             </h1>
 
             {/* Description */}
             <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-[#626760] sm:text-xl">
-              Be one of the first to experience what we are building. Join the
-              waitlist and get early access when we launch.
+              {project?.waitlist.description ?? "Be one of the first to experience what we are building."}
             </p>
 
             {/* Signup Form */}
@@ -94,7 +91,7 @@ export default function WaitlistPage({}: WaitlistPageProps) {
                   disabled={loading}
                   className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-[#1d5c43] px-7 text-sm font-medium text-white transition hover:bg-[#164732] disabled:cursor-not-allowed disabled:opacity-70"
                 >
-                  {loading ? "Joining..." : "Join the waitlist"}
+                  {loading ? "Joining..." : project?.waitlist.buttonText ?? "Join the waitlist"}
 
                   {!loading && <ArrowUpRight size={17} />}
                 </button>
@@ -116,6 +113,7 @@ export default function WaitlistPage({}: WaitlistPageProps) {
                 </div>
               </div>
             )}
+            {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
 
             <p className="mt-5 text-sm text-[#858981]">
               No spam. Just occasional updates about the launch.
@@ -135,7 +133,7 @@ export default function WaitlistPage({}: WaitlistPageProps) {
               </div>
 
               <span className="text-sm text-[#626760]">
-                Join 1,248+ people waiting for launch
+                Join {project?.memberCount ?? 0}+ people waiting for launch
               </span>
             </div>
 

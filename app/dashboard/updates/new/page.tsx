@@ -11,10 +11,21 @@ import {
   WandSparkles,
 } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function NewUpdatePage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+  async function sendUpdate() {
+    setSaving(true); setError("");
+    try { const response = await fetch("/api/updates", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ title, content, status: "published" }) }); const data = await response.json(); if (!response.ok) throw new Error(data.error || "Could not send update."); router.push("/dashboard/updates"); }
+    catch (cause) { setError(cause instanceof Error ? cause.message : "Could not send update."); }
+    finally { setSaving(false); }
+  }
 
   const generateDraft = () => {
     setTitle("We just shipped something exciting");
@@ -56,12 +67,13 @@ export default function NewUpdatePage() {
             Preview
           </button>
 
-          <button className="inline-flex h-10 items-center gap-2 rounded-xl bg-[#1d5c43] px-4 text-sm font-medium text-white transition hover:bg-[#164732]">
+          <button onClick={sendUpdate} disabled={saving} className="inline-flex h-10 items-center gap-2 rounded-xl bg-[#1d5c43] px-4 text-sm font-medium text-white transition hover:bg-[#164732] disabled:opacity-60">
             <Send size={16} />
-            Send update
+            {saving ? "Sending..." : "Send update"}
           </button>
         </div>
       </div>
+      {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
 
       {/* Main workspace */}
       <div className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">

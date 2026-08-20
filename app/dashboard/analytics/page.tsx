@@ -14,12 +14,13 @@ import {
   growthData,
   stats,
 } from "@/appDummyData/dashboard/analytics";
+import { DashboardShell } from "@/components/dashboard/DashboardShell";
 
 export default function AnalyticsPage() {
   const maxValue = Math.max(...growthData.map((item) => item.value));
 
   return (
-    <div className="mx-auto w-full max-w-7xl">
+    <DashboardShell><div className="mx-auto w-full max-w-7xl">
       {/* Header */}
       <div className="flex flex-col gap-5 border-b border-[#e5e7e2] pb-6 sm:flex-row sm:items-end sm:justify-between">
         <div>
@@ -255,6 +256,6 @@ export default function AnalyticsPage() {
           </button>
         </div>
       </div>
-    </div>
+    </div></DashboardShell>
   );
 }

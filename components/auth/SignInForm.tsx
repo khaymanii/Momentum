@@ -6,27 +6,30 @@ import { AuthDivider } from "./AuthDivider";
 import { AuthInput } from "./AuthInput";
 import { PasswordInput } from "./PasswordInput";
 import { SocialLogin } from "./SocialLogin";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from "next/navigation";
+import { firebaseAuth } from "@/lib/firebase-client";
+import { establishSession } from "@/lib/client-session";
 
 export function SignInForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const router = useRouter();
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setError("");
     setIsLoading(true);
 
-    // Temporary frontend simulation.
-    // Firebase authentication will be connected later.
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
+    try { const form = new FormData(event.currentTarget); const credential = await signInWithEmailAndPassword(firebaseAuth, String(form.get("email") ?? ""), String(form.get("password") ?? "")); await establishSession(credential.user); router.push("/dashboard"); router.refresh(); }
+    catch (cause) { setError(cause instanceof Error ? cause.message.replace("Firebase: ", "") : "Could not sign in."); }
+    finally { setIsLoading(false); }
   }
 
   return (
     <>
-      <SocialLogin />
+      <SocialLogin onSuccess={async (user) => { setIsLoading(true); setError(""); try { await establishSession(user); router.push("/dashboard"); router.refresh(); } catch (cause) { setError(cause instanceof Error ? cause.message : "Could not sign in."); } finally { setIsLoading(false); } }} />
 
       <AuthDivider />
 

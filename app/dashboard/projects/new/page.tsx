@@ -11,6 +11,7 @@ import {
   Users,
 } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const projectTypes = [
   {
@@ -35,6 +36,25 @@ const projectTypes = [
 
 export default function NewProjectPage() {
   const [selectedType, setSelectedType] = useState("startup");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [website, setWebsite] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+  async function createProject() {
+    setError("");
+    if (!name.trim()) return setError("Enter a project name to continue.");
+    setSaving(true);
+    try {
+      const response = await fetch("/api/projects", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, description, website, type: selectedType }) });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Could not create project.");
+      router.push(`/dashboard/projects/${data.project.id}/builder`);
+    } catch (cause) { setError(cause instanceof Error ? cause.message : "Could not create project."); }
+    finally { setSaving(false); }
+  }
 
   return (
     <div className="min-h-screen bg-[#f8f9f7]">
@@ -97,6 +117,8 @@ export default function NewProjectPage() {
             <input
               id="project-name"
               type="text"
+              value={name}
+              onChange={(event) => setName(event.target.value)}
               placeholder="e.g. My Startup"
               className="mt-2 h-12 w-full rounded-xl border border-[#dce1dc] bg-white px-4 text-sm text-[#171817] outline-none transition placeholder:text-[#a2a8a1] focus:border-[#6e9f80] focus:ring-4 focus:ring-[#e8f2eb]"
             />
@@ -118,6 +140,8 @@ export default function NewProjectPage() {
             <textarea
               id="description"
               rows={4}
+              value={description}
+              onChange={(event) => setDescription(event.target.value)}
               placeholder="Tell your audience what your project is about..."
               className="mt-2 w-full resize-none rounded-xl border border-[#dce1dc] bg-white px-4 py-3 text-sm leading-6 text-[#171817] outline-none transition placeholder:text-[#a2a8a1] focus:border-[#6e9f80] focus:ring-4 focus:ring-[#e8f2eb]"
             />
@@ -194,6 +218,8 @@ export default function NewProjectPage() {
             <input
               id="website"
               type="url"
+              value={website}
+              onChange={(event) => setWebsite(event.target.value)}
               placeholder="https://yourproject.com"
               className="mt-2 h-12 w-full rounded-xl border border-[#dce1dc] bg-white px-4 text-sm text-[#171817] outline-none transition placeholder:text-[#a2a8a1] focus:border-[#6e9f80] focus:ring-4 focus:ring-[#e8f2eb]"
             />
@@ -210,12 +236,15 @@ export default function NewProjectPage() {
 
             <button
               type="button"
+              onClick={createProject}
+              disabled={saving}
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#1d5c43] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#164732]"
             >
-              Continue
+              {saving ? "Creating..." : "Continue"}
               <ArrowRight size={17} />
             </button>
           </div>
+          {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
         </div>
 
         {/* Trust Message */}

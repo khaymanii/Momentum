@@ -3,6 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LogOut, Settings, X } from "lucide-react";
+import { signOut } from "firebase/auth";
+import { useRouter } from "next/navigation";
+import { firebaseAuth } from "@/lib/firebase-client";
+import { useAuthStore } from "@/stores/auth-store";
 import { navigation } from "@/componentDummyData/DashboardData";
 
 type SidebarProps = {
@@ -12,6 +16,11 @@ type SidebarProps = {
 
 export function Sidebar({ open = false, onClose }: SidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
+  const user = useAuthStore((state) => state.user);
+  const clear = useAuthStore((state) => state.clear);
+  const initials = (user?.name || user?.email || "Founder").split(" ").map((part) => part[0]).join("").slice(0, 2).toUpperCase();
+  async function logout() { await signOut(firebaseAuth); await fetch("/api/auth/session", { method: "DELETE" }); clear(); router.push("/sign-in"); router.refresh(); }
 
   return (
     <>
@@ -106,25 +115,25 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
               Settings
             </Link>
 
-            <div className="mt-5 border-t border-[#e5e7e2] pt-5">
+            <button onClick={logout} className="mt-5 w-full border-t border-[#e5e7e2] pt-5 text-left">
               <div className="flex items-center gap-3 rounded-xl px-2 py-2">
-                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#dfe9e2] text-sm font-semibold text-[#1d5c43]">
-                  AF
+                <div className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full bg-[#dfe9e2] text-sm font-semibold text-[#1d5c43]">
+                  {user?.image ? <img src={user.image} alt="Your profile" className="h-full w-full object-cover" referrerPolicy="no-referrer" /> : initials}
                 </div>
 
                 <div className="min-w-0">
                   <p className="truncate text-sm font-medium text-[#171817]">
-                    Founder
+                    {user?.name || "Founder"}
                   </p>
 
                   <p className="truncate text-xs text-[#858981]">
-                    founder@example.com
+                    {user?.email || ""}
                   </p>
                 </div>
 
                 <LogOut size={16} className="ml-auto shrink-0 text-[#9a9d97]" />
               </div>
-            </div>
+            </button>
           </div>
         </div>
       </aside>

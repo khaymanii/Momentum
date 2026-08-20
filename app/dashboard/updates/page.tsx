@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import Link from "next/link";
 import {
   ArrowUpRight,
@@ -11,9 +13,11 @@ import {
   Plus,
   Send,
 } from "lucide-react";
+import { DashboardShell } from "@/components/dashboard/DashboardShell";
 
-const updates = [
+const demoUpdates = [
   {
+    id: "",
     title: "We just shipped something exciting",
     description:
       "A quick look at what we have been building behind the scenes.",
@@ -24,6 +28,7 @@ const updates = [
     clicked: "42%",
   },
   {
+    id: "",
     title: "A look inside our product journey",
     description:
       "Sharing what we learned while building the next version of Momentum.",
@@ -34,6 +39,7 @@ const updates = [
     clicked: "38%",
   },
   {
+    id: "",
     title: "Something new is coming",
     description:
       "A preview of what we are working on next.",
@@ -46,8 +52,17 @@ const updates = [
 ];
 
 export default function UpdatesPage() {
+  const [updates, setUpdates] = useState(demoUpdates);
+  useEffect(() => {
+    fetch("/api/updates")
+      .then(async (response) => {
+        const data = await response.json();
+        if (response.ok) setUpdates(data.updates.map((update: { id: string; title: string; content: string; status: string }) => ({ id: update.id, title: update.title, description: update.content, status: update.status === "published" ? "Published" : "Draft", date: "Recently created", recipients: "—", opened: "—", clicked: "—" })));
+      })
+      .catch(() => undefined);
+  }, []);
   return (
-    <div className="mx-auto w-full max-w-7xl">
+    <DashboardShell><div className="mx-auto w-full max-w-7xl">
       {/* Header */}
       <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div>
@@ -142,7 +157,7 @@ export default function UpdatesPage() {
         <div className="overflow-hidden rounded-3xl border border-[#e5e7e2] bg-white">
           {updates.map((update, index) => (
             <div
-              key={update.title}
+              key={update.id || update.title}
               className={`p-5 sm:p-6 ${
                 index !== updates.length - 1
                   ? "border-b border-[#edf0eb]"
@@ -259,6 +274,6 @@ export default function UpdatesPage() {
           <ArrowUpRight size={16} />
         </Link>
       </div>
-    </div>
+    </div></DashboardShell>
   );
 }
