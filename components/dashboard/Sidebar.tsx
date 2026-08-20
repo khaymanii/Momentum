@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { LogOut, Settings, X } from "lucide-react";
 import { signOut } from "firebase/auth";
@@ -133,7 +134,9 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
               <div className="flex items-center gap-3 rounded-xl px-2 py-2">
                 <div className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full bg-[#dfe9e2] text-sm font-semibold text-[#1d5c43]">
                   {user?.image ? (
-                    <img
+                    <Image
+                      width={40}
+                      height={40}
                       src={user.image}
                       alt="Your profile"
                       className="h-full w-full object-cover"

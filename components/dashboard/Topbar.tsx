@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Bell, Menu, Search } from "lucide-react";
 import { useAuthStore } from "@/stores/auth-store";
+import Image from "next/image";
 
 type TopbarProps = {
   onMenuClick: () => void;
@@ -8,7 +9,12 @@ type TopbarProps = {
 
 export function Topbar({ onMenuClick }: TopbarProps) {
   const user = useAuthStore((state) => state.user);
-  const initials = (user?.name || user?.email || "Founder").split(" ").map((part) => part[0]).join("").slice(0, 2).toUpperCase();
+  const initials = (user?.name || user?.email || "Founder")
+    .split(" ")
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
   return (
     <header className="flex h-20 shrink-0 items-center justify-between border-b border-[#e5e7e2] bg-[#fbfcfa] px-4 sm:px-6 lg:px-8">
       <div className="flex items-center gap-3">
@@ -54,7 +60,16 @@ export function Topbar({ onMenuClick }: TopbarProps) {
           href="/dashboard/settings"
           className="grid h-10 w-10 place-items-center overflow-hidden rounded-full bg-[#dfe9e2] text-sm font-semibold text-[#1d5c43]"
         >
-          {user?.image ? <img src={user.image} alt="Your profile" className="h-full w-full object-cover" referrerPolicy="no-referrer" /> : initials}
+          {user?.image ? (
+            <Image
+              src={user.image}
+              alt="Your profile"
+              className="h-full w-full object-cover"
+              referrerPolicy="no-referrer"
+            />
+          ) : (
+            initials
+          )}
         </Link>
       </div>
     </header>
