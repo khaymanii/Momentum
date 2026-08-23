@@ -8,7 +8,21 @@ import { AuthInput } from "./AuthInput";
 
 export function ForgotPasswordForm() {
   const [message, setMessage] = useState("");
-  async function submit(event: React.FormEvent<HTMLFormElement>) { event.preventDefault(); const email = String(new FormData(event.currentTarget).get("email") ?? ""); try { await sendPasswordResetEmail(firebaseAuth, email); setMessage("Reset link sent. Check your inbox."); } catch (cause) { setMessage(cause instanceof Error ? cause.message.replace("Firebase: ", "") : "Could not send reset link."); } }
+
+  async function submit(event: React.SubmitEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const email = String(new FormData(event.currentTarget).get("email") ?? "");
+    try {
+      await sendPasswordResetEmail(firebaseAuth, email);
+      setMessage("Reset link sent. Check your inbox.");
+    } catch (cause) {
+      setMessage(
+        cause instanceof Error
+          ? cause.message.replace("Firebase: ", "")
+          : "Could not send reset link.",
+      );
+    }
+  }
   return (
     <>
       <form className="space-y-5" onSubmit={submit}>
@@ -26,7 +40,9 @@ export function ForgotPasswordForm() {
           Send reset link
         </button>
       </form>
-      {message && <p className="mt-4 text-center text-sm text-[#337456]">{message}</p>}
+      {message && (
+        <p className="mt-4 text-center text-sm text-[#337456]">{message}</p>
+      )}
 
       <p className="mt-6 text-center text-sm text-[#656861]">
         Remember your password?{" "}
