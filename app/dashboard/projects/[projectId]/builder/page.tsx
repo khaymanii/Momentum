@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowLeft,
   Check,
@@ -13,6 +13,7 @@ import {
   Users,
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const brandColors = [
   "#1d5c43",
@@ -23,15 +24,17 @@ const brandColors = [
   "#111827",
 ];
 
-export default function WaitlistBuilderPage() {
+type BuilderProps = { params: Promise<{ projectId: string }> };
+
+export default function WaitlistBuilderPage({ params }: BuilderProps) {
   const [projectName, setProjectName] = useState("My Startup");
 
   const [headline, setHeadline] = useState(
-    "Be the first to experience what's next."
+    "Be the first to experience what's next.",
   );
 
   const [description, setDescription] = useState(
-    "Join the waitlist and be part of something exciting from the very beginning."
+    "Join the waitlist and be part of something exciting from the very beginning.",
   );
 
   const [buttonText, setButtonText] = useState("Join the waitlist");
@@ -39,12 +42,77 @@ export default function WaitlistBuilderPage() {
   const [brandColor, setBrandColor] = useState("#1d5c43");
 
   const [previewMode, setPreviewMode] = useState<"desktop" | "mobile">(
-    "desktop"
+    "desktop",
   );
+  const [projectId, setProjectId] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [message, setMessage] = useState("");
+  const router = useRouter();
+
+  useEffect(() => {
+    params.then(async ({ projectId: id }) => {
+      setProjectId(id);
+      try {
+        const response = await fetch(`/api/projects/${id}`);
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error);
+        const project = data.project;
+        setProjectName(project.name);
+        setHeadline(project.waitlist?.headline ?? headline);
+        setDescription(project.waitlist?.description ?? description);
+        setButtonText(project.waitlist?.buttonText ?? buttonText);
+        setBrandColor(project.waitlist?.brandColor ?? brandColor);
+      } catch (cause) {
+        setMessage(
+          cause instanceof Error ? cause.message : "Could not load project.",
+        );
+      }
+    });
+    // The route parameter is stable for this page instance.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params]);
+
+  async function saveProject() {
+    if (!projectId) return;
+    setSaving(true);
+    setMessage("");
+    try {
+      const response = await fetch(`/api/projects/${projectId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: projectName,
+          waitlist: { headline, description, buttonText, brandColor },
+          status: "published",
+        }),
+      });
+      const data = await response.json();
+      if (!response.ok)
+        throw new Error(data.error || "Could not save project.");
+      setMessage("Saved.");
+    } catch (cause) {
+      setMessage(
+        cause instanceof Error ? cause.message : "Could not save project.",
+      );
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function publishProject() {
+    await saveProject();
+    if (projectId)
+      router.push(
+        `/w/${projectName
+          .toLowerCase()
+          .trim()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-|-$/g, "")}`,
+      );
+  }
 
   return (
     <div className="flex min-h-screen flex-col bg-[#f5f7f4]">
-      {/* Header */}
       <header className="flex h-16 shrink-0 items-center justify-between border-b border-[#e1e5e0] bg-white px-4 sm:px-6">
         <div className="flex items-center gap-3">
           <Link
@@ -71,27 +139,37 @@ export default function WaitlistBuilderPage() {
             Preview
           </button>
 
-<Link
-  href="/dashboard/projects/my-startup/waitlist"
-  className="hidden items-center gap-2 rounded-lg border border-[#dfe3dd] px-3 py-2 text-sm font-medium text-[#656861] transition hover:bg-[#f5f7f4] sm:flex"
->
-  <Users size={16} />
-  Waitlist
-</Link>
+          <Link
+            href={`/dashboard/projects/${projectId}/waitlist`}
+            className="hidden items-center gap-2 rounded-lg border border-[#dfe3dd] px-3 py-2 text-sm font-medium text-[#656861] transition hover:bg-[#f5f7f4] sm:flex"
+          >
+            <Users size={16} />
+            Waitlist
+          </Link>
 
-          <button className="rounded-lg border border-[#dfe3dd] px-3 py-2 text-sm font-medium text-[#656861] transition hover:bg-[#f5f7f4]">
-            Save
+          <button
+            onClick={saveProject}
+            disabled={saving}
+            className="rounded-lg border border-[#dfe3dd] px-3 py-2 text-sm font-medium text-[#656861] transition hover:bg-[#f5f7f4] disabled:opacity-60"
+          >
+            {saving ? "Saving..." : "Save"}
           </button>
 
-        <Link
-  href="/w/my-startup"
-  className="rounded-lg px-3 py-2 text-sm font-medium text-white transition hover:opacity-90 sm:px-4"
-  style={{ backgroundColor: brandColor }}
->
-  Publish
-</Link>
+          <button
+            onClick={publishProject}
+            disabled={!projectId || saving}
+            className="rounded-lg px-3 py-2 text-sm font-medium text-white transition hover:opacity-90 sm:px-4"
+            style={{ backgroundColor: brandColor }}
+          >
+            Publish
+          </button>
         </div>
       </header>
+      {message && (
+        <p className="absolute right-5 top-17 z-10 rounded-lg bg-white px-3 py-2 text-sm text-[#337456] shadow">
+          {message}
+        </p>
+      )}
 
       {/* Builder */}
       <div className="flex flex-1 flex-col lg:flex-row">
@@ -114,7 +192,6 @@ export default function WaitlistBuilderPage() {
               </p>
             </div>
 
-            {/* Project Details */}
             <div className="mt-8">
               <div className="flex items-center gap-2">
                 <Type size={16} className="text-[#337456]" />
@@ -219,16 +296,12 @@ export default function WaitlistBuilderPage() {
                       type="button"
                       onClick={() => setBrandColor(color)}
                       className={`grid h-9 w-9 place-items-center rounded-full transition ${
-                        isSelected
-                          ? "ring-2 ring-offset-2 ring-[#6e9f80]"
-                          : ""
+                        isSelected ? "ring-2 ring-offset-2 ring-[#6e9f80]" : ""
                       }`}
                       style={{ backgroundColor: color }}
                       aria-label={`Select ${color}`}
                     >
-                      {isSelected && (
-                        <Check size={16} className="text-white" />
-                      )}
+                      {isSelected && <Check size={16} className="text-white" />}
                     </button>
                   );
                 })}
@@ -303,9 +376,7 @@ export default function WaitlistBuilderPage() {
           <div className="flex flex-1 items-center justify-center overflow-auto bg-[#edf0ec] p-5 sm:p-8 lg:p-12">
             <div
               className={`relative min-h-130 overflow-hidden rounded-2xl border border-[#dfe4df] bg-white shadow-[0_20px_60px_rgba(30,60,40,0.1)] transition-all duration-300 ${
-                previewMode === "mobile"
-                  ? "w-80"
-                  : "w-full max-w-4xl"
+                previewMode === "mobile" ? "w-80" : "w-full max-w-4xl"
               }`}
             >
               {/* Preview Navbar */}
@@ -323,9 +394,7 @@ export default function WaitlistBuilderPage() {
                   </span>
                 </div>
 
-                <span className="text-xs text-[#858981]">
-                  Coming soon
-                </span>
+                <span className="text-xs text-[#858981]">Coming soon</span>
               </div>
 
               {/* Preview Content */}

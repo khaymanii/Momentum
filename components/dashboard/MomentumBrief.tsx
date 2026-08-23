@@ -1,13 +1,8 @@
-import {
-  ArrowUpRight,
-  Lightbulb,
-  Sparkles,
-} from "lucide-react";
+import { ArrowUpRight, Lightbulb, Sparkles } from "lucide-react";
 
 export function MomentumBrief() {
   return (
     <section className="relative overflow-hidden rounded-3xl border border-[#dce8df] bg-[#eef6f0] p-6 sm:p-8">
-      {/* Decorative background */}
       <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-[#d9ebdf] blur-3xl" />
 
       <div className="relative">
@@ -21,9 +16,7 @@ export function MomentumBrief() {
               Momentum Brief
             </p>
 
-            <p className="text-xs text-[#7c897f]">
-              AI-powered insight
-            </p>
+            <p className="text-xs text-[#7c897f]">AI-powered insight</p>
           </div>
         </div>
 
