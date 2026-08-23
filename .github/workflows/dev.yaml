@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - dev
-
   pull_request:
     branches:
       - dev
@@ -29,8 +28,11 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
-      - name: Build Application
-        run: npm run build
-
       - name: Build Docker Image
-        run: docker build -t momentum:dev .
+        run: |
+          docker build \
+            --build-arg NEXT_PUBLIC_FIREBASE_API_KEY=${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }} \
+            --build-arg NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=${{ secrets.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN }} \
+            --build-arg NEXT_PUBLIC_FIREBASE_PROJECT_ID=${{ secrets.NEXT_PUBLIC_FIREBASE_PROJECT_ID }} \
+            --build-arg NEXT_PUBLIC_FIREBASE_APP_ID=${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }} \
+            -t momentum:dev .

@@ -1,7 +1,8 @@
 "use client";
 
 import { getApp, getApps, initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, type Auth } from "firebase/auth";
+import { getAnalytics, type Analytics } from "firebase/analytics";
 
 const config = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -12,4 +13,14 @@ const config = {
 
 const app = getApps().length ? getApp() : initializeApp(config);
 
-export const firebaseAuth = getAuth(app);
+export let firebaseAuth: Auth;
+export let analytics: Analytics | undefined;
+
+if (typeof window !== "undefined") {
+  firebaseAuth = getAuth(app);
+  analytics = getAnalytics(app);
+} else {
+  // server: provide a placeholder so imports don't crash the build.
+  // Nothing server-side should actually call auth methods on this.
+  firebaseAuth = getAuth(app);
+}
