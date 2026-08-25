@@ -48,12 +48,27 @@ export default function NewProjectPage() {
     if (!name.trim()) return setError("Enter a project name to continue.");
     setSaving(true);
     try {
-      const response = await fetch("/api/projects", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, description, website, type: selectedType }) });
+      const response = await fetch("/api/projects", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          description,
+          website,
+          type: selectedType,
+        }),
+      });
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Could not create project.");
+      if (!response.ok)
+        throw new Error(data.error || "Could not create project.");
       router.push(`/dashboard/projects/${data.project.id}/builder`);
-    } catch (cause) { setError(cause instanceof Error ? cause.message : "Could not create project."); }
-    finally { setSaving(false); }
+    } catch (cause) {
+      setError(
+        cause instanceof Error ? cause.message : "Could not create project.",
+      );
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (
@@ -89,9 +104,7 @@ export default function NewProjectPage() {
             <Rocket size={25} />
           </div>
 
-          <p className="mt-6 text-sm font-medium text-[#337456]">
-            Step 1 of 3
-          </p>
+          <p className="mt-6 text-sm font-medium text-[#337456]">Step 1 of 3</p>
 
           <h1 className="mt-3 text-3xl font-semibold tracking-[-0.045em] text-[#171817] sm:text-5xl">
             What are you building?
@@ -210,9 +223,7 @@ export default function NewProjectPage() {
             >
               <Globe2 size={16} />
               Website
-              <span className="font-normal text-[#9aa09a]">
-                Optional
-              </span>
+              <span className="font-normal text-[#9aa09a]">Optional</span>
             </label>
 
             <input
