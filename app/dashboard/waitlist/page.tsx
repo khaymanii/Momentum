@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Download,
   Filter,
@@ -73,12 +71,9 @@ export default function WaitlistPage() {
   return (
     <DashboardShell>
       <div className="mx-auto max-w-375">
-        {/* Header */}
         <div className="flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
           <div>
-            <p className="text-sm font-medium text-[#337456]">
-              Audience
-            </p>
+            <p className="text-sm font-medium text-[#337456]">Audience</p>
 
             <h1 className="mt-2 text-3xl font-semibold tracking-tighter text-[#171817] sm:text-4xl">
               Your waitlist
@@ -103,7 +98,6 @@ export default function WaitlistPage() {
           </div>
         </div>
 
-        {/* Overview stats */}
         <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <div className="rounded-2xl border border-[#e2e6e0] bg-white p-5">
             <div className="flex items-center justify-between">
@@ -112,9 +106,7 @@ export default function WaitlistPage() {
               <Users size={18} className="text-[#337456]" />
             </div>
 
-            <p className="mt-4 text-3xl font-semibold text-[#171817]">
-              1,248
-            </p>
+            <p className="mt-4 text-3xl font-semibold text-[#171817]">1,248</p>
 
             <p className="mt-2 text-xs font-medium text-[#337456]">
               ↑ 12.8% this month
@@ -124,9 +116,7 @@ export default function WaitlistPage() {
           <div className="rounded-2xl border border-[#e2e6e0] bg-white p-5">
             <p className="text-sm text-[#858981]">Highly engaged</p>
 
-            <p className="mt-4 text-3xl font-semibold text-[#171817]">
-              684
-            </p>
+            <p className="mt-4 text-3xl font-semibold text-[#171817]">684</p>
 
             <p className="mt-2 text-xs font-medium text-[#337456]">
               54.8% of audience
@@ -136,9 +126,7 @@ export default function WaitlistPage() {
           <div className="rounded-2xl border border-[#e2e6e0] bg-white p-5">
             <p className="text-sm text-[#858981]">Avg. momentum score</p>
 
-            <p className="mt-4 text-3xl font-semibold text-[#171817]">
-              82
-            </p>
+            <p className="mt-4 text-3xl font-semibold text-[#171817]">82</p>
 
             <p className="mt-2 text-xs font-medium text-[#337456]">
               ↑ 6.2% this month
@@ -148,9 +136,7 @@ export default function WaitlistPage() {
           <div className="rounded-2xl border border-[#e2e6e0] bg-white p-5">
             <p className="text-sm text-[#858981]">New this week</p>
 
-            <p className="mt-4 text-3xl font-semibold text-[#171817]">
-              86
-            </p>
+            <p className="mt-4 text-3xl font-semibold text-[#171817]">86</p>
 
             <p className="mt-2 text-xs font-medium text-[#337456]">
               ↑ 24.5% from last week
