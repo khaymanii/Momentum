@@ -49,8 +49,13 @@ export default function NewProjectPage() {
     setSaving(true);
     try {
       const response = await fetch("/api/projects", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, description, website, type: selectedType }) });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Could not create project.");
+      let data;
+      try {
+        data = await response.json();
+      } catch {
+        throw new Error(`Server returned error (${response.status})`);
+      }
+      if (!response.ok) throw new Error(data?.error || "Could not create project.");
       router.push(`/dashboard/projects/${data.project.id}/builder`);
     } catch (cause) { setError(cause instanceof Error ? cause.message : "Could not create project."); }
     finally { setSaving(false); }

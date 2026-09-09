@@ -39,8 +39,15 @@ export default function ProjectsPage() {
   useEffect(() => {
     fetch("/api/projects")
       .then(async (response) => {
-        const data = await response.json();
-        if (response.ok) setProjects(data.projects.map((project: { id: string; name: string; description: string; status: string; memberCount: number; momentumScore: number }) => ({ id: project.id, name: project.name, description: project.description, status: project.status, members: String(project.memberCount), momentum: String(project.momentumScore), updated: "Recently updated" })));
+        if (!response.ok) return;
+        try {
+          const data = await response.json();
+          if (Array.isArray(data?.projects)) {
+            setProjects(data.projects.map((project: { id: string; name: string; description: string; status: string; memberCount: number; momentumScore: number }) => ({ id: project.id, name: project.name, description: project.description, status: project.status, members: String(project.memberCount), momentum: String(project.momentumScore), updated: "Recently updated" })));
+          }
+        } catch {
+          // ignore non-json response
+        }
       })
       .catch(() => undefined);
   }, []);
