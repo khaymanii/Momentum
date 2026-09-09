@@ -64,6 +64,8 @@ export function Topbar({ onMenuClick }: TopbarProps) {
             <Image
               src={user.image}
               alt="Your profile"
+              width={100}
+              height={100}
               className="h-full w-full object-cover"
               referrerPolicy="no-referrer"
             />

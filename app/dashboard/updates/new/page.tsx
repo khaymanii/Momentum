@@ -21,16 +21,30 @@ export default function NewUpdatePage() {
   const router = useRouter();
 
   async function sendUpdate() {
-    setSaving(true); setError("");
-    try { const response = await fetch("/api/updates", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ title, content, status: "published" }) }); const data = await response.json(); if (!response.ok) throw new Error(data.error || "Could not send update."); router.push("/dashboard/updates"); }
-    catch (cause) { setError(cause instanceof Error ? cause.message : "Could not send update."); }
-    finally { setSaving(false); }
+    setSaving(true);
+    setError("");
+    try {
+      const response = await fetch("/api/updates", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, content, status: "published" }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Could not send update.");
+      router.push("/dashboard/updates");
+    } catch (cause) {
+      setError(
+        cause instanceof Error ? cause.message : "Could not send update.",
+      );
+    } finally {
+      setSaving(false);
+    }
   }
 
   const generateDraft = () => {
     setTitle("We just shipped something exciting");
     setContent(
-      "We've been working behind the scenes to make Momentum better for founders building their next big idea.\n\nToday, we're excited to share a new update with you. Your feedback and support continue to shape what we're building.\n\nMore exciting things are coming soon."
+      "We've been working behind the scenes to make Momentum better for founders building their next big idea.\n\nToday, we're excited to share a new update with you. Your feedback and support continue to shape what we're building.\n\nMore exciting things are coming soon.",
     );
   };
 
@@ -67,7 +81,11 @@ export default function NewUpdatePage() {
             Preview
           </button>
 
-          <button onClick={sendUpdate} disabled={saving} className="inline-flex h-10 items-center gap-2 rounded-xl bg-[#1d5c43] px-4 text-sm font-medium text-white transition hover:bg-[#164732] disabled:opacity-60">
+          <button
+            onClick={sendUpdate}
+            disabled={saving}
+            className="inline-flex h-10 items-center gap-2 rounded-xl bg-[#1d5c43] px-4 text-sm font-medium text-white transition hover:bg-[#164732] disabled:opacity-60"
+          >
             <Send size={16} />
             {saving ? "Sending..." : "Send update"}
           </button>
@@ -83,9 +101,7 @@ export default function NewUpdatePage() {
             <div className="flex items-center gap-2">
               <Mail size={17} className="text-[#1d5c43]" />
 
-              <h2 className="font-semibold text-[#171817]">
-                Update content
-              </h2>
+              <h2 className="font-semibold text-[#171817]">Update content</h2>
             </div>
 
             <p className="mt-1 text-sm text-[#858981]">
@@ -160,13 +176,9 @@ export default function NewUpdatePage() {
               </div>
 
               <div>
-                <h2 className="font-semibold text-[#171817]">
-                  Founder AI
-                </h2>
+                <h2 className="font-semibold text-[#171817]">Founder AI</h2>
 
-                <p className="text-xs text-[#6d736b]">
-                  Your writing assistant
-                </p>
+                <p className="text-xs text-[#6d736b]">Your writing assistant</p>
               </div>
             </div>
           </div>
@@ -178,8 +190,8 @@ export default function NewUpdatePage() {
               </p>
 
               <p className="mt-2 text-sm leading-6 text-[#6d736b]">
-                Give us a few details about your progress and AI will help
-                turn your thoughts into an engaging update.
+                Give us a few details about your progress and AI will help turn
+                your thoughts into an engaging update.
               </p>
             </div>
 
@@ -213,8 +225,8 @@ export default function NewUpdatePage() {
               </p>
 
               <p className="mt-2 text-sm leading-6 text-[#4d554e]">
-                The best founder updates feel personal. Share the progress,
-                the challenge, or the small win behind what you&apos;re building.
+                The best founder updates feel personal. Share the progress, the
+                challenge, or the small win behind what you&apos;re building.
               </p>
             </div>
           </div>

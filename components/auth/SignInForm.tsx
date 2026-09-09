@@ -16,20 +16,52 @@ export function SignInForm() {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setError("");
     setIsLoading(true);
 
-    try { const form = new FormData(event.currentTarget); const credential = await signInWithEmailAndPassword(firebaseAuth, String(form.get("email") ?? ""), String(form.get("password") ?? "")); await establishSession(credential.user); router.push("/dashboard"); router.refresh(); }
-    catch (cause) { setError(cause instanceof Error ? cause.message.replace("Firebase: ", "") : "Could not sign in."); }
-    finally { setIsLoading(false); }
+    try {
+      const form = new FormData(event.currentTarget);
+      const credential = await signInWithEmailAndPassword(
+        firebaseAuth,
+        String(form.get("email") ?? ""),
+        String(form.get("password") ?? ""),
+      );
+      await establishSession(credential.user);
+      router.push("/dashboard");
+      router.refresh();
+    } catch (cause) {
+      setError(
+        cause instanceof Error
+          ? cause.message.replace("Firebase: ", "")
+          : "Could not sign in.",
+      );
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
     <>
-      <SocialLogin onSuccess={async (user) => { setIsLoading(true); setError(""); try { await establishSession(user); router.push("/dashboard"); router.refresh(); } catch (cause) { setError(cause instanceof Error ? cause.message : "Could not sign in."); } finally { setIsLoading(false); } }} />
+      <SocialLogin
+        onSuccess={async (user) => {
+          setIsLoading(true);
+          setError("");
+          try {
+            await establishSession(user);
+            router.push("/dashboard");
+            router.refresh();
+          } catch (cause) {
+            setError(
+              cause instanceof Error ? cause.message : "Could not sign in.",
+            );
+          } finally {
+            setIsLoading(false);
+          }
+        }}
+      />
 
       <AuthDivider />
 
@@ -41,10 +73,7 @@ export function SignInForm() {
           placeholder="you@example.com"
         />
 
-        <PasswordInput
-          label="Password"
-          name="password"
-        />
+        <PasswordInput label="Password" name="password" />
 
         <div className="flex justify-end">
           <Link
