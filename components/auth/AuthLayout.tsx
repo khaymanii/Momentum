@@ -16,7 +16,7 @@ export function AuthLayout({ children, title, description }: AuthLayoutProps) {
           href="/"
           className="inline-flex w-fit items-center gap-2.5 text-lg font-semibold tracking-tight"
         >
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-white text-sm font-bold text-[#1d5c43]">
+          <span className="grid h-8 w-8 place-items-center rounded-lg bg-white text-s font-bold text-[#1d5c43]">
             M
           </span>
           Momentum

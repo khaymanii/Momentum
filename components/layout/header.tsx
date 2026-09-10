@@ -8,7 +8,7 @@ export function Header() {
         href="/"
         className="flex items-center gap-2.5 text-lg font-semibold tracking-tight"
       >
-        <span className="grid h-7 w-7 place-items-center rounded-lg bg-[#1d5c43] text-sm font-bold text-white">
+        <span className="grid h-8 w-8 place-items-center rounded-lg bg-[#1d5c43] text-s font-bold text-white">
           M
         </span>
 

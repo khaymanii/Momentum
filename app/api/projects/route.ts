@@ -3,15 +3,19 @@ import { FieldValue } from "firebase-admin/firestore";
 import { apiError, slugify } from "@/lib/api";
 import { db } from "@/lib/firebase-admin";
 import { requireUser } from "@/lib/auth";
+import { getClientIp, logSecurityEvent } from "@/lib/security";
 
 export const runtime = "nodejs";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const user = await requireUser();
     const snapshot = await db().collection("projects").where("ownerId", "==", user.uid).get();
     return NextResponse.json({ projects: snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) });
   } catch (error) {
+    if (error instanceof Error && error.message === "Unauthorized") {
+      logSecurityEvent("unauthorized_api_access", { ip: getClientIp(request.headers), route: "/api/projects", success: false, statusCode: 401 });
+    }
     return apiError(error);
   }
 }
@@ -50,6 +54,9 @@ export async function POST(request: NextRequest) {
     const ref = await db().collection("projects").add(project);
     return NextResponse.json({ project: { id: ref.id, ...project, createdAt: null, updatedAt: null } }, { status: 201 });
   } catch (error) {
+    if (error instanceof Error && error.message === "Unauthorized") {
+      logSecurityEvent("unauthorized_api_access", { ip: getClientIp(request.headers), route: "/api/projects", success: false, statusCode: 401 });
+    }
     return apiError(error);
   }
 }

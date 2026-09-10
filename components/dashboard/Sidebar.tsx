@@ -59,9 +59,9 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
             onClick={onClose}
             className="flex items-center gap-2.5 text-lg font-semibold tracking-tight text-[#171817]"
           >
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-[#1d5c43] text-sm font-bold text-white">
-              M
-            </span>
+            <span className="grid h-8 w-8 place-items-center rounded-lg bg-[#1d5c43] text-s font-bold text-white">
+          M
+        </span>
             Momentum
           </Link>
 

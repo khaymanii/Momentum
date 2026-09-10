@@ -2,11 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { apiError } from "@/lib/api";
 import { db } from "@/lib/firebase-admin";
 import { requireUser } from "@/lib/auth";
+import { getClientIp, logSecurityEvent } from "@/lib/security";
 
 export const runtime = "nodejs";
 
 export async function GET(
-  _: NextRequest,
+  request: NextRequest,
   context: RouteContext<"/api/projects/[projectId]/subscribers">,
 ) {
   try {
@@ -28,6 +29,9 @@ export async function GET(
       subscribers: snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })),
     });
   } catch (error) {
+    if (error instanceof Error && error.message === "Unauthorized") {
+      logSecurityEvent("unauthorized_api_access", { ip: getClientIp(request.headers), route: "/api/projects/[projectId]/subscribers", success: false, statusCode: 401 });
+    }
     return apiError(error);
   }
 }
