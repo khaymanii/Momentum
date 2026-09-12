@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Logo } from "./logo";
 
 const navigation = [
   ["How it works", "#how-it-works"],
@@ -12,15 +12,7 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-10 lg:px-8">
         <div className="flex flex-col justify-between gap-8 sm:flex-row sm:items-start">
           <div>
-            <Link
-              className="flex items-center gap-2.5 text-lg font-semibold tracking-tight"
-              href="/"
-            >
-              <span className="grid h-7 w-7 place-items-center rounded-lg bg-[#1d5c43] text-sm font-bold text-white">
-                M
-              </span>
-              Momentum
-            </Link>
+            <Logo size="md" />
             <p className="mt-3 max-w-xs text-sm leading-6 text-[#70766e]">
               The pre-launch platform for teams building what&apos;s next.
             </p>

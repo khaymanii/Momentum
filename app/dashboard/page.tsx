@@ -18,6 +18,7 @@ import {
   YAxis,
 } from "recharts";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
+import { useAuthStore } from "@/stores/auth-store";
 import {
   activities,
   chartData,
@@ -25,6 +26,8 @@ import {
 } from "@/appDummyData/dashboard/dashboard";
 
 export default function DashboardPage() {
+  const user = useAuthStore((state) => state.user);
+
   return (
     <DashboardShell>
       <div className="mx-auto max-w-375">
@@ -32,11 +35,15 @@ export default function DashboardPage() {
           <div>
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#dce8df] bg-[#eef6f0] px-3 py-1.5 text-xs font-medium text-[#337456]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#337456]" />
-              Monday, July 21, 2026
+              {new Date().toLocaleDateString("en-US", {
+                weekday: "long",
+                month: "long",
+                day: "numeric",
+              })}
             </div>
 
             <h1 className="text-3xl font-semibold tracking-tighter text-[#171817] sm:text-4xl lg:text-5xl">
-              Good morning, {user?name}.
+              Good morning, {user?.name}
             </h1>
 
             <p className="mt-3 max-w-xl text-sm leading-7 text-[#656861] sm:text-base">

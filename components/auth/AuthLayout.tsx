@@ -1,3 +1,4 @@
+import { Logo } from "@/components/layout/logo";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -10,13 +11,12 @@ type AuthLayoutProps = {
 export function AuthLayout({ children, title, description }: AuthLayoutProps) {
   return (
     <main className="min-h-screen bg-[#f8f8f6] lg:grid lg:grid-cols-[0.9fr_1.1fr]">
-      {/* Brand Panel */}
       <section className="relative hidden min-h-screen overflow-hidden bg-[#1d5c43] p-10 text-white lg:flex lg:flex-col lg:justify-between">
         <Link
           href="/"
           className="inline-flex w-fit items-center gap-2.5 text-lg font-semibold tracking-tight"
         >
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-white text-sm font-bold text-[#1d5c43]">
+          <span className="grid h-8 w-8 place-items-center rounded-lg bg-white text-s font-bold text-[#1d5c43]">
             M
           </span>
           Momentum
@@ -49,15 +49,7 @@ export function AuthLayout({ children, title, description }: AuthLayoutProps) {
       <section className="flex min-h-screen items-center justify-center px-6 py-12 sm:px-10 lg:px-16">
         <div className="w-full max-w-md">
           <div className="mb-8 lg:hidden">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2.5 text-lg font-semibold tracking-tight"
-            >
-              <span className="grid h-8 w-8 place-items-center rounded-lg bg-[#1d5c43] text-sm font-bold text-white">
-                M
-              </span>
-              Momentum
-            </Link>
+            <Logo variant="dark" size="md" />
           </div>
 
           <div className="mb-8">

@@ -1,16 +1,17 @@
 import GoogleIcon from "@/public/Icon/google";
 import {
-  GithubAuthProvider,
   GoogleAuthProvider,
   signInWithPopup,
-  User,
+  type User,
 } from "firebase/auth";
-import { firebaseAuth } from "@/lib/firebase-client";
+import { getFirebaseAuth } from "@/lib/firebase-client";
 
 type SocialLoginProps = {
   onGoogleClick?: () => void;
   onGithubClick?: () => void;
   onSuccess?: (user: User) => Promise<void>;
+  onError?: (error: unknown) => void;
+  disabled?: boolean;
 };
 
 export function SocialLogin({ onGoogleClick, onSuccess }: SocialLoginProps) {
@@ -22,12 +23,14 @@ export function SocialLogin({ onGoogleClick, onSuccess }: SocialLoginProps) {
     if (onSuccess)
       await onSuccess((await signInWithPopup(firebaseAuth, provider)).user);
   }
+
   return (
     <div className="space-y-3">
       <button
         type="button"
+        disabled={disabled}
         onClick={() => signIn(new GoogleAuthProvider(), onGoogleClick)}
-        className="flex h-12 w-full items-center justify-center gap-3 rounded-full border border-[#dfe2dc] bg-white text-sm font-medium text-[#171817] transition-all hover:border-[#c8ccc5] hover:bg-[#fafaf9] active:scale-[0.99]"
+        className="flex h-12 w-full items-center justify-center gap-3 rounded-full border border-[#dfe2dc] bg-white text-sm font-medium text-[#171817] transition-all hover:border-[#c8ccc5] hover:bg-[#fafaf9] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
       >
         <GoogleIcon />
         Continue with Google
@@ -35,3 +38,4 @@ export function SocialLogin({ onGoogleClick, onSuccess }: SocialLoginProps) {
     </div>
   );
 }
+

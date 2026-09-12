@@ -6,9 +6,11 @@ import { usePathname } from "next/navigation";
 import { LogOut, Settings, X } from "lucide-react";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { firebaseAuth } from "@/lib/firebase-client";
+import { getFirebaseAuth } from "@/lib/firebase-client";
 import { useAuthStore } from "@/stores/auth-store";
 import { navigation } from "@/componentDummyData/DashboardData";
+
+import { Logo } from "@/components/layout/logo";
 
 type SidebarProps = {
   open?: boolean;
@@ -20,25 +22,23 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
   const router = useRouter();
   const user = useAuthStore((state) => state.user);
   const clear = useAuthStore((state) => state.clear);
-  const initials = (user?.name || user?.email || "Founder")
+  const initials = (user?.name || "AD")
     .split(" ")
-    .map((part) => part[0])
+    .map((item) => item[0])
     .join("")
     .slice(0, 2)
     .toUpperCase();
   async function logout() {
-    await signOut(firebaseAuth);
+    await signOut(getFirebaseAuth());
     await fetch("/api/auth/session", { method: "DELETE" });
     clear();
     router.push("/sign-in");
-    router.refresh();
   }
 
   return (
     <>
       {open && (
-        <button
-          aria-label="Close sidebar"
+        <div
           onClick={onClose}
           className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm lg:hidden"
         />
@@ -46,7 +46,7 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
 
       <aside
         className={`
-          fixed inset-y-0 left-0 z-50 flex w-70 flex-col
+          fixed inset-y-0 left-0 z-50 flex w-72 flex-col
           border-r border-[#e5e7e2] bg-[#fbfcfa]
           transition-transform duration-300
           lg:static lg:z-auto lg:w-64 lg:translate-x-0
@@ -59,7 +59,7 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
             onClick={onClose}
             className="flex items-center gap-2.5 text-lg font-semibold tracking-tight text-[#171817]"
           >
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-[#1d5c43] text-sm font-bold text-white">
+            <span className="grid h-8 w-8 place-items-center rounded-lg bg-[#1d5c43] text-s font-bold text-white">
               M
             </span>
             Momentum

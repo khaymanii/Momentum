@@ -31,11 +31,21 @@ export default function WaitlistPage({ params }: WaitlistPageProps) {
       setSlug(value);
       fetch(`/api/public/w/${encodeURIComponent(value)}`)
         .then(async (response) => {
-          const data = await response.json();
-          if (!response.ok) throw new Error(data.error);
+          let data;
+          try {
+            data = await response.json();
+          } catch {
+            throw new Error(`Server returned ${response.status}`);
+          }
+          if (!response.ok)
+            throw new Error(data?.error || "Waitlist not found.");
           setProject(data.project);
         })
-        .catch((cause) => setError(cause.message));
+        .catch((cause) =>
+          setError(
+            cause instanceof Error ? cause.message : "Could not load waitlist.",
+          ),
+        );
     });
   }, [params]);
   const projectName = project?.name ?? "Loading...";
@@ -53,12 +63,17 @@ export default function WaitlistPage({ params }: WaitlistPageProps) {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email }),
+          body: JSON.stringify({ email: email.trim() }),
         },
       );
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch {
+        throw new Error(`Server returned status ${response.status}`);
+      }
       if (!response.ok)
-        throw new Error(data.error || "Could not join the waitlist.");
+        throw new Error(data?.error || "Could not join the waitlist.");
       setSubmitted(true);
       setEmail("");
     } catch (cause) {
@@ -90,28 +105,23 @@ export default function WaitlistPage({ params }: WaitlistPageProps) {
         </div>
       </header>
 
-      {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="mx-auto flex min-h-[calc(100vh-5rem)] max-w-5xl items-center justify-center px-6 py-20 text-center lg:px-8">
           <div className="w-full max-w-3xl">
-            {/* Badge */}
             <div className="mx-auto flex w-fit items-center gap-2 rounded-full border border-[#dce8df] bg-white px-4 py-2 text-sm text-[#47725e] shadow-sm">
               <Sparkles size={15} />
               You&apos;re early
             </div>
 
-            {/* Heading */}
             <h1 className="mt-8 text-5xl font-semibold leading-[1.02] tracking-[-0.06em] text-[#161916] sm:text-6xl lg:text-8xl">
               {project?.waitlist.headline ?? "The future is almost here."}
             </h1>
 
-            {/* Description */}
             <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-[#626760] sm:text-xl">
               {project?.waitlist.description ??
                 "Be one of the first to experience what we are building."}
             </p>
 
-            {/* Signup Form */}
             {!submitted ? (
               <form
                 onSubmit={handleSubmit}

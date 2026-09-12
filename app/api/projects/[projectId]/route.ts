@@ -3,10 +3,11 @@ import { FieldValue } from "firebase-admin/firestore";
 import { apiError, slugify } from "@/lib/api";
 import { db } from "@/lib/firebase-admin";
 import { requireUser } from "@/lib/auth";
+import { getClientIp, logSecurityEvent } from "@/lib/security";
 
 export const runtime = "nodejs";
 
-export async function GET(_: NextRequest, context: RouteContext<"/api/projects/[projectId]">) {
+export async function GET(request: NextRequest, context: RouteContext<"/api/projects/[projectId]">) {
   try {
     const user = await requireUser();
     const { projectId } = await context.params;
@@ -14,7 +15,12 @@ export async function GET(_: NextRequest, context: RouteContext<"/api/projects/[
     const projectData = snapshot.data();
     if (!snapshot.exists || !projectData || projectData.ownerId !== user.uid) return NextResponse.json({ error: "Project not found." }, { status: 404 });
     return NextResponse.json({ project: { id: snapshot.id, ...snapshot.data() } });
-  } catch (error) { return apiError(error); }
+  } catch (error) {
+    if (error instanceof Error && error.message === "Unauthorized") {
+      logSecurityEvent("unauthorized_api_access", { ip: getClientIp(request.headers), route: "/api/projects/[projectId]", success: false, statusCode: 401 });
+    }
+    return apiError(error);
+  }
 }
 
 export async function PATCH(request: NextRequest, context: RouteContext<"/api/projects/[projectId]">) {
@@ -34,5 +40,10 @@ export async function PATCH(request: NextRequest, context: RouteContext<"/api/pr
     await db().collection("projects").doc(projectId).update(update);
     const saved = await db().collection("projects").doc(projectId).get();
     return NextResponse.json({ project: { id: saved.id, ...saved.data() } });
-  } catch (error) { return apiError(error); }
+  } catch (error) {
+    if (error instanceof Error && error.message === "Unauthorized") {
+      logSecurityEvent("unauthorized_api_access", { ip: getClientIp(request.headers), route: "/api/projects/[projectId]", success: false, statusCode: 401 });
+    }
+    return apiError(error);
+  }
 }
