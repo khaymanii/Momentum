@@ -37,7 +37,6 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
 
   return (
     <>
-      {/* Mobile overlay */}
       {open && (
         <div
           onClick={onClose}
@@ -45,7 +44,6 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
         />
       )}
 
-      {/* Sidebar */}
       <aside
         className={`
           fixed inset-y-0 left-0 z-50 flex w-72 flex-col
@@ -62,11 +60,10 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
             className="flex items-center gap-2.5 text-lg font-semibold tracking-tight text-[#171817]"
           >
             <span className="grid h-8 w-8 place-items-center rounded-lg bg-[#1d5c43] text-s font-bold text-white">
-          M
-        </span>
+              M
+            </span>
             Momentum
           </Link>
-          <Logo href="/dashboard" onClick={onClose} size="lg" />
 
           <button
             onClick={onClose}

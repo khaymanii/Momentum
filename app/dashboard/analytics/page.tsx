@@ -91,9 +91,7 @@ export default function AnalyticsPage() {
           })}
         </div>
 
-        {/* Main analytics */}
         <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
-          {/* Growth chart */}
           <div className="rounded-3xl border border-[#e5e7e2] bg-white p-6 sm:p-8">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div>
