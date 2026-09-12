@@ -42,11 +42,8 @@ export function SignInForm() {
       router.push("/dashboard");
       router.refresh();
     } catch (cause) {
-      setError(
-        cause instanceof Error
-          ? cause.message.replace("Firebase: ", "")
-          : "Could not sign in.",
-      );
+      console.error("Sign-in failed:", cause);
+      setError("We couldn't sign you in. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -63,7 +60,8 @@ export function SignInForm() {
             router.push("/dashboard");
             router.refresh();
           } catch (cause) {
-            setError(formatAuthError(cause));
+            console.error("Social sign-in failed:", cause);
+            setError("We couldn't sign you in. Please try again.");
           } finally {
             setIsLoading(false);
           }
