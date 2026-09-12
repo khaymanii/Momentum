@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "../landing/arrow-up-right";
+import { Logo } from "./logo";
 
 export function Header() {
   return (
@@ -14,6 +15,7 @@ export function Header() {
 
         Momentum
       </Link>
+      <Logo size="md" />
 
       <nav className="hidden items-center gap-8 text-sm text-[#656861] md:flex">
         <Link href="#how-it-works">How it works</Link>

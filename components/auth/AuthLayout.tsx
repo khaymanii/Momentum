@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Logo } from "@/components/layout/logo";
 import type { ReactNode } from "react";
 
 type AuthLayoutProps = {
@@ -21,6 +21,7 @@ export function AuthLayout({ children, title, description }: AuthLayoutProps) {
           </span>
           Momentum
         </Link>
+        <Logo variant="light" size="md" />
 
         <div className="relative z-10 max-w-md">
           <p className="mb-5 text-sm font-medium uppercase tracking-[0.18em] text-white/60">
@@ -49,15 +50,7 @@ export function AuthLayout({ children, title, description }: AuthLayoutProps) {
       <section className="flex min-h-screen items-center justify-center px-6 py-12 sm:px-10 lg:px-16">
         <div className="w-full max-w-md">
           <div className="mb-8 lg:hidden">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2.5 text-lg font-semibold tracking-tight"
-            >
-              <span className="grid h-8 w-8 place-items-center rounded-lg bg-[#1d5c43] text-sm font-bold text-white">
-                M
-              </span>
-              Momentum
-            </Link>
+            <Logo variant="dark" size="md" />
           </div>
 
           <div className="mb-8">
