@@ -8,7 +8,7 @@ import { PasswordInput } from "./PasswordInput";
 import { SocialLogin } from "./SocialLogin";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { firebaseAuth } from "@/lib/firebase-client";
+import { getFirebaseAuth, formatAuthError } from "@/lib/firebase-client";
 import { establishSession } from "@/lib/client-session";
 
 export function SignInForm() {
@@ -24,20 +24,25 @@ export function SignInForm() {
 
     try {
       const form = new FormData(event.currentTarget);
+      const email = String(form.get("email") ?? "").trim();
+      const password = String(form.get("password") ?? "");
+
+      if (!email || !password) {
+        setError("Please enter your email and password.");
+        setIsLoading(false);
+        return;
+      }
+
       const credential = await signInWithEmailAndPassword(
-        firebaseAuth,
-        String(form.get("email") ?? ""),
-        String(form.get("password") ?? ""),
+        getFirebaseAuth(),
+        email,
+        password,
       );
       await establishSession(credential.user);
       router.push("/dashboard");
       router.refresh();
     } catch (cause) {
-      setError(
-        cause instanceof Error
-          ? cause.message.replace("Firebase: ", "")
-          : "Could not sign in.",
-      );
+      setError(formatAuthError(cause));
     } finally {
       setIsLoading(false);
     }
@@ -46,6 +51,11 @@ export function SignInForm() {
   return (
     <>
       <SocialLogin
+        disabled={isLoading}
+        onError={(cause) => {
+          setError(formatAuthError(cause));
+          setIsLoading(false);
+        }}
         onSuccess={async (user) => {
           setIsLoading(true);
           setError("");
@@ -54,9 +64,7 @@ export function SignInForm() {
             router.push("/dashboard");
             router.refresh();
           } catch (cause) {
-            setError(
-              cause instanceof Error ? cause.message : "Could not sign in.",
-            );
+            setError(formatAuthError(cause));
           } finally {
             setIsLoading(false);
           }
@@ -72,6 +80,9 @@ export function SignInForm() {
           type="email"
           placeholder="you@example.com"
         />
+
+
+        
 
         <PasswordInput label="Password" name="password" />
 
@@ -121,3 +132,4 @@ export function SignInForm() {
     </>
   );
 }
+

@@ -6,7 +6,7 @@ import { AuthInput } from "./AuthInput";
 import { PasswordInput } from "./PasswordInput";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { firebaseAuth } from "@/lib/firebase-client";
+import { getFirebaseAuth, formatAuthError } from "@/lib/firebase-client";
 import { establishSession } from "@/lib/client-session";
 
 export function SignUpForm() {
@@ -18,13 +18,40 @@ export function SignUpForm() {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
     const name = String(form.get("name") ?? "").trim();
+    const email = String(form.get("email") ?? "").trim();
     const password = String(form.get("password") ?? "");
-    if (password !== String(form.get("confirmPassword") ?? "")) return setError("Passwords do not match.");
+    const confirmPassword = String(form.get("confirmPassword") ?? "");
+
+    if (!email) {
+      return setError("Please enter your email address.");
+    }
+    if (!password) {
+      return setError("Please enter a password.");
+    }
+    if (password !== confirmPassword) {
+      return setError("Passwords do not match.");
+    }
+
     setError("");
     setIsLoading(true);
-    try { const credential = await createUserWithEmailAndPassword(firebaseAuth, String(form.get("email") ?? ""), password); if (name) await updateProfile(credential.user, { displayName: name }); await establishSession(credential.user); router.push("/dashboard"); router.refresh(); }
-    catch (cause) { setError(cause instanceof Error ? cause.message.replace("Firebase: ", "") : "Could not create account."); }
-    finally { setIsLoading(false); }
+
+    try {
+      const credential = await createUserWithEmailAndPassword(
+        getFirebaseAuth(),
+        email,
+        password,
+      );
+      if (name) {
+        await updateProfile(credential.user, { displayName: name });
+      }
+      await establishSession(credential.user);
+      router.push("/dashboard");
+      router.refresh();
+    } catch (cause) {
+      setError(formatAuthError(cause));
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -79,7 +106,14 @@ export function SignUpForm() {
             .
           </span>
         </label>
-        {error && <div role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>}
+        {error && (
+          <div
+            role="alert"
+            className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+          >
+            {error}
+          </div>
+        )}
 
         <button
           type="submit"
@@ -109,5 +143,3 @@ export function SignUpForm() {
     </>
   );
 }
-
-

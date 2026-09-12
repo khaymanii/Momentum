@@ -29,8 +29,13 @@ export default function NewUpdatePage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, content, status: "published" }),
       });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Could not send update.");
+      let data;
+      try {
+        data = await response.json();
+      } catch {
+        throw new Error(`Server returned error (${response.status})`);
+      }
+      if (!response.ok) throw new Error(data?.error || "Could not send update.");
       router.push("/dashboard/updates");
     } catch (cause) {
       setError(
