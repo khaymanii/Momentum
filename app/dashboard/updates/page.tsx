@@ -56,8 +56,15 @@ export default function UpdatesPage() {
   useEffect(() => {
     fetch("/api/updates")
       .then(async (response) => {
-        const data = await response.json();
-        if (response.ok) setUpdates(data.updates.map((update: { id: string; title: string; content: string; status: string }) => ({ id: update.id, title: update.title, description: update.content, status: update.status === "published" ? "Published" : "Draft", date: "Recently created", recipients: "—", opened: "—", clicked: "—" })));
+        if (!response.ok) return;
+        try {
+          const data = await response.json();
+          if (Array.isArray(data?.updates)) {
+            setUpdates(data.updates.map((update: { id: string; title: string; content: string; status: string }) => ({ id: update.id, title: update.title, description: update.content, status: update.status === "published" ? "Published" : "Draft", date: "Recently created", recipients: "—", opened: "—", clicked: "—" })));
+          }
+        } catch {
+          // ignore non-json response
+        }
       })
       .catch(() => undefined);
   }, []);

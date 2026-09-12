@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 "use client";
+=======
+"use client"
+import { useAuthStore } from "@/stores/auth-store";
+
+>>>>>>> 12af168ca5084c28876e33b33335a5ae82e2fb2e
 
 import {
   ArrowUpRight,
@@ -18,6 +24,7 @@ import {
   YAxis,
 } from "recharts";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
+import { useAuthStore } from "@/stores/auth-store";
 import {
   activities,
   chartData,
@@ -26,8 +33,12 @@ import {
 import { useAuthStore } from "@/stores/auth-store";
 
 export default function DashboardPage() {
+<<<<<<< HEAD
   const user = useAuthStore((state) => state.user);
 
+=======
+const user = useAuthStore((state) => state.user);
+>>>>>>> 12af168ca5084c28876e33b33335a5ae82e2fb2e
   return (
     <DashboardShell>
       <div className="mx-auto max-w-375">
@@ -35,6 +46,7 @@ export default function DashboardPage() {
           <div>
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#dce8df] bg-[#eef6f0] px-3 py-1.5 text-xs font-medium text-[#337456]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#337456]" />
+<<<<<<< HEAD
               {new Date().toLocaleDateString("en-US", {
                 weekday: "long",
                 month: "long",
@@ -44,7 +56,15 @@ export default function DashboardPage() {
 
             <h1 className="text-3xl font-semibold tracking-tighter text-[#171817] sm:text-4xl lg:text-5xl">
               Good morning, {user?.name}
+=======
+              Thursday, September 10, 2026
+            </div>
+
+            <h1 className="text-3xl font-semibold tracking-tighter text-[#171817] sm:text-4xl lg:text-5xl">
+              Good morning, {user?.name}.
+>>>>>>> 12af168ca5084c28876e33b33335a5ae82e2fb2e
             </h1>
+
 
             <p className="mt-3 max-w-xl text-sm leading-7 text-[#656861] sm:text-base">
               Your audience is growing. Here&apos;s a look at the momentum

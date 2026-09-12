@@ -3,10 +3,11 @@ import { FieldValue } from "firebase-admin/firestore";
 import { apiError } from "@/lib/api";
 import { db } from "@/lib/firebase-admin";
 import { requireUser } from "@/lib/auth";
+import { getClientIp, logSecurityEvent } from "@/lib/security";
 
 export const runtime = "nodejs";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const user = await requireUser();
     const snapshot = await db()
@@ -17,6 +18,9 @@ export async function GET() {
       updates: snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })),
     });
   } catch (error) {
+    if (error instanceof Error && error.message === "Unauthorized") {
+      logSecurityEvent("unauthorized_api_access", { ip: getClientIp(request.headers), route: "/api/updates", success: false, statusCode: 401 });
+    }
     return apiError(error);
   }
 }
@@ -60,6 +64,9 @@ export async function POST(request: NextRequest) {
       });
     return NextResponse.json({ update: { id: ref.id } }, { status: 201 });
   } catch (error) {
+    if (error instanceof Error && error.message === "Unauthorized") {
+      logSecurityEvent("unauthorized_api_access", { ip: getClientIp(request.headers), route: "/api/updates", success: false, statusCode: 401 });
+    }
     return apiError(error);
   }
 }
