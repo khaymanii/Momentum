@@ -8,7 +8,6 @@ import {
   Download,
   TrendingUp,
 } from "lucide-react";
-
 import {
   engagementData,
   growthData,
@@ -22,7 +21,6 @@ export default function AnalyticsPage() {
   return (
     <DashboardShell>
       <div className="mx-auto w-full max-w-7xl">
-        {/* Header */}
         <div className="flex flex-col gap-5 border-b border-[#e5e7e2] pb-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-sm font-medium text-[#1d5c43]">
@@ -52,7 +50,6 @@ export default function AnalyticsPage() {
           </div>
         </div>
 
-        {/* Stats */}
         <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {stats.map((stat) => {
             const Icon = stat.icon;
@@ -123,7 +120,6 @@ export default function AnalyticsPage() {
               </div>
             </div>
 
-            {/* CSS chart */}
             <div className="mt-10">
               <div className="flex h-64 items-end gap-2 sm:gap-4">
                 {growthData.map((item) => {

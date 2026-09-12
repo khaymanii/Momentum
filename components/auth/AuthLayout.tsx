@@ -1,4 +1,5 @@
 import { Logo } from "@/components/layout/logo";
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 type AuthLayoutProps = {
@@ -10,7 +11,6 @@ type AuthLayoutProps = {
 export function AuthLayout({ children, title, description }: AuthLayoutProps) {
   return (
     <main className="min-h-screen bg-[#f8f8f6] lg:grid lg:grid-cols-[0.9fr_1.1fr]">
-      {/* Brand Panel */}
       <section className="relative hidden min-h-screen overflow-hidden bg-[#1d5c43] p-10 text-white lg:flex lg:flex-col lg:justify-between">
         <Link
           href="/"
@@ -21,7 +21,6 @@ export function AuthLayout({ children, title, description }: AuthLayoutProps) {
           </span>
           Momentum
         </Link>
-        <Logo variant="light" size="md" />
 
         <div className="relative z-10 max-w-md">
           <p className="mb-5 text-sm font-medium uppercase tracking-[0.18em] text-white/60">

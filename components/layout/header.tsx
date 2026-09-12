@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ArrowUpRight } from "../landing/arrow-up-right";
-import { Logo } from "./logo";
 
 export function Header() {
   return (
@@ -12,10 +11,8 @@ export function Header() {
         <span className="grid h-8 w-8 place-items-center rounded-lg bg-[#1d5c43] text-s font-bold text-white">
           M
         </span>
-
         Momentum
       </Link>
-      <Logo size="md" />
 
       <nav className="hidden items-center gap-8 text-sm text-[#656861] md:flex">
         <Link href="#how-it-works">How it works</Link>
