@@ -1,9 +1,5 @@
 import GoogleIcon from "@/public/Icon/google";
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
-  type User,
-} from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, type User } from "firebase/auth";
 import { getFirebaseAuth } from "@/lib/firebase-client";
 
 type SocialLoginProps = {
@@ -14,14 +10,20 @@ type SocialLoginProps = {
   disabled?: boolean;
 };
 
-export function SocialLogin({ onGoogleClick, onSuccess }: SocialLoginProps) {
-  async function signIn(
-    provider: GoogleAuthProvider | GithubAuthProvider,
-    fallback?: () => void,
-  ) {
+export function SocialLogin({
+  onGoogleClick,
+  onSuccess,
+  disabled,
+}: SocialLoginProps) {
+  async function signIn(provider: GoogleAuthProvider, fallback?: () => void) {
     if (fallback) return fallback();
-    if (onSuccess)
-      await onSuccess((await signInWithPopup(firebaseAuth, provider)).user);
+
+    const auth = getFirebaseAuth();
+    const result = await signInWithPopup(auth, provider);
+
+    if (onSuccess) {
+      await onSuccess(result.user);
+    }
   }
 
   return (
@@ -38,4 +40,3 @@ export function SocialLogin({ onGoogleClick, onSuccess }: SocialLoginProps) {
     </div>
   );
 }
-
