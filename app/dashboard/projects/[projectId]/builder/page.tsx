@@ -54,8 +54,13 @@ export default function WaitlistBuilderPage({ params }: BuilderProps) {
       setProjectId(id);
       try {
         const response = await fetch(`/api/projects/${id}`);
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.error);
+        let data;
+        try {
+          data = await response.json();
+        } catch {
+          throw new Error(`Server returned status ${response.status}`);
+        }
+        if (!response.ok) throw new Error(data?.error || "Could not load project.");
         const project = data.project;
         setProjectName(project.name);
         setHeadline(project.waitlist?.headline ?? headline);
@@ -86,9 +91,14 @@ export default function WaitlistBuilderPage({ params }: BuilderProps) {
           status: "published",
         }),
       });
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch {
+        throw new Error(`Server returned status ${response.status}`);
+      }
       if (!response.ok)
-        throw new Error(data.error || "Could not save project.");
+        throw new Error(data?.error || "Could not save project.");
       setMessage("Saved.");
     } catch (cause) {
       setMessage(

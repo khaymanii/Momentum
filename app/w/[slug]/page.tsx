@@ -31,11 +31,16 @@ export default function WaitlistPage({ params }: WaitlistPageProps) {
       setSlug(value);
       fetch(`/api/public/w/${encodeURIComponent(value)}`)
         .then(async (response) => {
-          const data = await response.json();
-          if (!response.ok) throw new Error(data.error);
+          let data;
+          try {
+            data = await response.json();
+          } catch {
+            throw new Error(`Server returned ${response.status}`);
+          }
+          if (!response.ok) throw new Error(data?.error || "Waitlist not found.");
           setProject(data.project);
         })
-        .catch((cause) => setError(cause.message));
+        .catch((cause) => setError(cause instanceof Error ? cause.message : "Could not load waitlist."));
     });
   }, [params]);
   const projectName = project?.name ?? "Loading...";
@@ -53,12 +58,17 @@ export default function WaitlistPage({ params }: WaitlistPageProps) {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email }),
+          body: JSON.stringify({ email: email.trim() }),
         },
       );
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch {
+        throw new Error(`Server returned status ${response.status}`);
+      }
       if (!response.ok)
-        throw new Error(data.error || "Could not join the waitlist.");
+        throw new Error(data?.error || "Could not join the waitlist.");
       setSubmitted(true);
       setEmail("");
     } catch (cause) {
