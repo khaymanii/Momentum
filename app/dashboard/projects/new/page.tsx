@@ -48,7 +48,6 @@ export default function NewProjectPage() {
     if (!name.trim()) return setError("Enter a project name to continue.");
     setSaving(true);
     try {
-<<<<<<< HEAD
       const response = await fetch("/api/projects", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -62,16 +61,6 @@ export default function NewProjectPage() {
       const data = await response.json();
       if (!response.ok)
         throw new Error(data.error || "Could not create project.");
-=======
-      const response = await fetch("/api/projects", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, description, website, type: selectedType }) });
-      let data;
-      try {
-        data = await response.json();
-      } catch {
-        throw new Error(`Server returned error (${response.status})`);
-      }
-      if (!response.ok) throw new Error(data?.error || "Could not create project.");
->>>>>>> 12af168ca5084c28876e33b33335a5ae82e2fb2e
       router.push(`/dashboard/projects/${data.project.id}/builder`);
     } catch (cause) {
       setError(
