@@ -14,31 +14,14 @@ type SocialLoginProps = {
   disabled?: boolean;
 };
 
-export function SocialLogin({ onGoogleClick, onSuccess, onError, disabled }: SocialLoginProps) {
+export function SocialLogin({ onGoogleClick, onSuccess }: SocialLoginProps) {
   async function signIn(
-    provider: GoogleAuthProvider,
+    provider: GoogleAuthProvider | GithubAuthProvider,
     fallback?: () => void,
   ) {
     if (fallback) return fallback();
-    try {
-      const result = await signInWithPopup(getFirebaseAuth(), provider);
-      if (onSuccess) {
-        await onSuccess(result.user);
-      }
-    } catch (cause) {
-      if (cause instanceof Error) {
-        if (
-          cause.message.includes("auth/popup-closed-by-user") ||
-          cause.message.includes("auth/cancelled-popup-request")
-        ) {
-          // User intentionally closed the popup; return gracefully without raising error
-          return;
-        }
-      }
-      if (onError) {
-        onError(cause);
-      }
-    }
+    if (onSuccess)
+      await onSuccess((await signInWithPopup(firebaseAuth, provider)).user);
   }
 
   return (

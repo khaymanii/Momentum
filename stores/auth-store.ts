@@ -21,18 +21,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   hydrate: async () => {
     try {
       const response = await fetch("/api/auth/session");
-      let user: User | null = null;
-      if (response.ok) {
-        try {
-          const data = await response.json();
-          user = data?.user ?? null;
-        } catch {
-          user = null;
-        }
-      }
-      set({ user });
-    } catch {
-      set({ user: null });
+      set({ user: response.ok ? (await response.json()).user : null });
     } finally {
       set({ loading: false });
     }
