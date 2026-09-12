@@ -10,8 +10,6 @@ import { getFirebaseAuth } from "@/lib/firebase-client";
 import { useAuthStore } from "@/stores/auth-store";
 import { navigation } from "@/componentDummyData/DashboardData";
 
-import { Logo } from "@/components/layout/logo";
-
 type SidebarProps = {
   open?: boolean;
   onClose?: () => void;
