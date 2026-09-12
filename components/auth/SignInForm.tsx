@@ -63,9 +63,7 @@ export function SignInForm() {
             router.push("/dashboard");
             router.refresh();
           } catch (cause) {
-            setError(
-              cause instanceof Error ? cause.message : "Could not sign in.",
-            );
+            setError(formatAuthError(cause));
           } finally {
             setIsLoading(false);
           }
@@ -130,4 +128,3 @@ export function SignInForm() {
     </>
   );
 }
-
