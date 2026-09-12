@@ -12,6 +12,15 @@ export function AuthLayout({ children, title, description }: AuthLayoutProps) {
     <main className="min-h-screen bg-[#f8f8f6] lg:grid lg:grid-cols-[0.9fr_1.1fr]">
       {/* Brand Panel */}
       <section className="relative hidden min-h-screen overflow-hidden bg-[#1d5c43] p-10 text-white lg:flex lg:flex-col lg:justify-between">
+        <Link
+          href="/"
+          className="inline-flex w-fit items-center gap-2.5 text-lg font-semibold tracking-tight"
+        >
+          <span className="grid h-8 w-8 place-items-center rounded-lg bg-white text-s font-bold text-[#1d5c43]">
+            M
+          </span>
+          Momentum
+        </Link>
         <Logo variant="light" size="md" />
 
         <div className="relative z-10 max-w-md">

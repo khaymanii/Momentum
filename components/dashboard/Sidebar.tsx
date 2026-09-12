@@ -56,6 +56,16 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
         `}
       >
         <div className="flex h-20 shrink-0 items-center justify-between border-b border-[#e5e7e2] px-6">
+          <Link
+            href="/dashboard"
+            onClick={onClose}
+            className="flex items-center gap-2.5 text-lg font-semibold tracking-tight text-[#171817]"
+          >
+            <span className="grid h-8 w-8 place-items-center rounded-lg bg-[#1d5c43] text-s font-bold text-white">
+          M
+        </span>
+            Momentum
+          </Link>
           <Logo href="/dashboard" onClick={onClose} size="lg" />
 
           <button
